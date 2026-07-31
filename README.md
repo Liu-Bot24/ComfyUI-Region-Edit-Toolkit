@@ -1,0 +1,131 @@
+# ComfyUI-Smart-Removal
+
+在原图分辨率下使用 FLUX.2 Klein 模型进行局部智能消除，避免把整张高分辨率图片直接输入模型后发生缩图，并尽量保留未处理区域的原始细节。
+
+工作流从一张原图开始，使用 ComfyUI 核心 SAM3.1 自动识别处理对象和保护对象；随后只围绕目标遮罩规划原生分辨率局部块，使用 FLUX.2 Klein 9B 分块生成，并将处理结果严格合回原图。遮罩范围外不经过生成模型，也不缩放整张原图。
+
+仓库内的正式工作流位于 [`workflows/ComfyUI-Smart-Removal.json`](workflows/ComfyUI-Smart-Removal.json)。
+
+本项目在 Comfy Registry 中的底层节点包名称为 `Native Region Tile Planner & Merge`（包 ID：`native-region-tile-planner-merge`）。该名称描述节点包实际承担的原生分辨率分块规划与合并职责；完整工作流和 GitHub 仓库仍名为 `ComfyUI-Smart-Removal`。
+
+## 安装方式
+
+### 方式一：通过 ComfyUI Manager 安装
+
+1. 打开 Manager，进入“节点管理”。
+2. 搜索 `Native Region Tile Planner & Merge`，或使用包 ID `native-region-tile-planner-merge` 搜索。
+3. 安装最新版本，然后从原来的 ComfyUI 启动器重启 ComfyUI。
+4. 下载并打开本仓库的 `workflows/ComfyUI-Smart-Removal.json`。
+5. 使用 Manager 的“安装缺失节点”补齐工作流需要的其他公开节点包，然后再次重启 ComfyUI。
+
+### 方式二：通过 Git URL 安装
+
+1. 打开 Manager，点击“通过 Git URL 安装”。
+2. 输入：
+
+   ```text
+   https://github.com/Liu-Bot24/ComfyUI-Smart-Removal.git
+   ```
+
+3. 安装完成后，从原来的 ComfyUI 启动器重启 ComfyUI。
+4. 下载并打开本仓库的 `workflows/ComfyUI-Smart-Removal.json`。
+5. 打开 Manager 的“安装缺失节点”，安装工作流所需的其他公开节点包，然后再次重启 ComfyUI。
+
+Manager 只能安装节点包和 Python 依赖，不能代替用户接受模型许可或自动安装本页列出的模型文件。
+
+### 方式三：手工安装
+
+在 `ComfyUI/custom_nodes/` 下执行：
+
+```powershell
+git clone https://github.com/Liu-Bot24/ComfyUI-Smart-Removal.git
+cd ComfyUI-Smart-Removal
+python -m pip install -r requirements.txt
+```
+
+必须使用 ComfyUI 自己的 Python 环境执行 `pip`。Windows Portable 应使用其 `python_embeded\python.exe`；整合包或启动器用户应使用该启动器实际调用的 Python，不要安装到系统 Python。
+
+安装后从原来的启动器重启 ComfyUI。
+
+## 工作流还需要的节点包
+
+除本仓库外，工作流使用以下已公开节点包：
+
+- [ComfyUI-KJNodes](https://github.com/kijai/ComfyUI-KJNodes)：遮罩叠加预览。
+- [ComfyUI-Impact-Pack](https://github.com/ltdrdata/ComfyUI-Impact-Pack)：`PreviewBridge` 遮罩编辑器和布尔控制。
+- [ComfyUI-Easy-Use](https://github.com/yolain/ComfyUI-Easy-Use)：遮罩非空判断。
+
+`SAM3_Detect`、`ReferenceLatent`、`Flux2Scheduler`、`ImageCompositeMasked` 等属于当前 ComfyUI 核心节点。若这些节点缺失，应先更新到支持 SAM3.1 和 FLUX.2 Klein 的新版 ComfyUI，而不是安装同名第三方节点。
+
+## 必需模型
+
+文件名必须与工作流一致：
+
+| 文件 | 放置目录 | 来源 |
+|---|---|---|
+| `sam3.1_multiplex_fp16.safetensors` | `ComfyUI/models/checkpoints/` | [Comfy-Org SAM3.1](https://huggingface.co/Comfy-Org/sam3.1/blob/main/checkpoints/sam3.1_multiplex_fp16.safetensors) |
+| `flux-2-klein-9b-fp8.safetensors` | `ComfyUI/models/diffusion_models/` | [Black Forest Labs FLUX.2 Klein 9B FP8](https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8) |
+| `qwen_3_8b_fp8mixed.safetensors` | `ComfyUI/models/text_encoders/` | [Comfy-Org 9B text encoder](https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-9b/blob/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors) |
+| `full_encoder_small_decoder.safetensors` | `ComfyUI/models/vae/` | [Black Forest Labs FLUX.2 small decoder](https://huggingface.co/black-forest-labs/FLUX.2-small-decoder/blob/main/full_encoder_small_decoder.safetensors) |
+
+FLUX.2 Klein 9B 的上游仓库可能要求登录并接受模型许可。本仓库不包含或重新分发任何模型权重。
+
+## SAM3 中文输入
+
+SAM3 的文本编码器使用英文。本节点包提供 `SAM Prompt Auto English (Offline)`：
+
+- 英文输入原样通过；
+- 中文输入使用本机 Argos Translate 中译英；
+- 工作流运行时不调用在线翻译服务，也不会自动下载语言模型。
+
+Manager 会根据 `requirements.txt` 安装 Argos Translate 程序库，但中译英语言模型需要一次性安装。在本插件目录内，用 ComfyUI 的 Python 执行：
+
+```powershell
+python scripts/install_argos_zh_en.py
+```
+
+脚本只在用户明确执行时联网下载 Argos 官方中译英语言包。安装完成后重启 ComfyUI。若不安装语言包，仍可直接给 SAM3 输入英文对象名称。
+
+## 使用顺序
+
+1. 上传一张原图。
+2. 在 SAM3 区域填写处理对象和保护对象。
+3. 保持“最终生成”关闭，先运行一次并检查自动遮罩和分块范围。
+4. 只有自动遮罩不准确时，才打开目标或保护遮罩编辑器进行修正并保存。
+5. 在集中控制区填写删除/替换要求。默认使用“标准”分块、外扩 32、羽化 8。
+6. 确认白色生成范围正确后开启“最终生成”，再次运行。
+7. 最终输出保持原图分辨率；遮罩范围外直接保留原图。
+
+## 分块档位与合成参数
+
+- **保守（小块）**：显存不足或标准档运行失败时使用；区块较多。
+- **标准**：默认档位，适合先检查遮罩、分块范围和生成效果。
+- **大块（高显存）**：目标较大、需要更多完整上下文且显存充足时使用。
+- **超大块（慢速）**：尽量让大型完整目标进入更少的局部块。该档不会缩放原图，但显存占用和耗时会显著增加；即使在 24GB 显存设备上也可能接近显存上限、运行数分钟，并使 8188 界面或 API 在计算期间暂时无响应。它不是默认档位，也不保证任意目标都能合并为单块。
+
+外扩决定模型需要重建的范围；羽化决定最终生成区域怎样渐变合回原图。羽化不扩大重建范围，分块之间的内部接缝由节点的归属与加权合并逻辑单独处理。
+
+## 本节点包提供的节点
+
+- `Mask Region Tile Planner (Exact)`
+- `Get Region Tile (Exact)`
+- `Prepare Dynamic Region Tiles`
+- `Prepare Controlled Dynamic Region Tiles`
+- `Universal Local Edit Controls`
+- `Merge Dynamic Region Tiles (Normalized)`
+- `SAM Prompt Auto English (Offline)`
+- `Edit Instruction + Preserve Suffix`
+- `Universal SAM3 Scan Windows (Native)`
+- `SAM3 Detections to Native Regions`
+- `Merge SAM3 Window Masks (Exact)`
+- `Automatic + Manual Mask (Protected)`
+
+当前归属合并逻辑要求每个核心像素只有一个所属块；相邻块在明确的内部接缝带内交叉渐变，生成范围之外不混入候选图。节点不会缩放整张原图。
+
+## 验证
+
+开发者可在仓库根目录运行：
+
+```powershell
+python -m unittest discover -s tests -v
+```
