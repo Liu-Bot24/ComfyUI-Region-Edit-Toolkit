@@ -1,131 +1,237 @@
-# ComfyUI-Smart-Removal
+# ComfyUI 图像分区编辑工具包
 
-在原图分辨率下使用 FLUX.2 Klein 模型进行局部智能消除，避免把整张高分辨率图片直接输入模型后发生缩图，并尽量保留未处理区域的原始细节。
+**Region Edit Toolkit** 为 ComfyUI 提供一组可组合的图像分区处理节点，覆盖区域定位、裁切、遮罩编辑、分块处理、颜色与细节协调，以及局部结果的精确回贴。
 
-工作流从一张原图开始，使用 ComfyUI 核心 SAM3.1 自动识别处理对象和保护对象；随后只围绕目标遮罩规划原生分辨率局部块，使用 FLUX.2 Klein 9B 分块生成，并将处理结果严格合回原图。遮罩范围外不经过生成模型，也不缩放整张原图。
+当前版本包含 42 个 `RegionEdit...` 节点，统一位于 `Region Edit Toolkit` 菜单下。
 
-仓库内的正式工作流位于 [`workflows/ComfyUI-Smart-Removal.json`](workflows/ComfyUI-Smart-Removal.json)。
+## 功能
 
-本项目在 Comfy Registry 中的底层节点包名称为 `Native Region Tile Planner & Merge`（包 ID：`native-region-tile-planner-merge`）。该名称描述节点包实际承担的原生分辨率分块规划与合并职责；完整工作流和 GitHub 仓库仍名为 `ComfyUI-Smart-Removal`。
+- 从人脸、检测框或扫描窗口建立处理区域
+- 组合自动遮罩、手涂修正和保护遮罩
+- 为大图或多个离散目标规划并合并分块
+- 按原始坐标将局部处理结果精确合回原图
+- 匹配局部颜色、低频、高频和皮肤微纹理
+- 构建并检查局部编辑 Prompt
+- 可选使用本地 Argos 模型完成中文到英文的离线翻译
 
-## 安装方式
+## 安装
 
-### 方式一：通过 ComfyUI Manager 安装
+需要 Python 3.10 或更高版本。依赖必须安装到 ComfyUI 实际使用的 Python 环境中。
 
-1. 打开 Manager，进入“节点管理”。
-2. 搜索 `Native Region Tile Planner & Merge`，或使用包 ID `native-region-tile-planner-merge` 搜索。
-3. 安装最新版本，然后从原来的 ComfyUI 启动器重启 ComfyUI。
-4. 下载并打开本仓库的 `workflows/ComfyUI-Smart-Removal.json`。
-5. 使用 Manager 的“安装缺失节点”补齐工作流需要的其他公开节点包，然后再次重启 ComfyUI。
-
-### 方式二：通过 Git URL 安装
-
-1. 打开 Manager，点击“通过 Git URL 安装”。
-2. 输入：
-
-   ```text
-   https://github.com/Liu-Bot24/ComfyUI-Smart-Removal.git
-   ```
-
-3. 安装完成后，从原来的 ComfyUI 启动器重启 ComfyUI。
-4. 下载并打开本仓库的 `workflows/ComfyUI-Smart-Removal.json`。
-5. 打开 Manager 的“安装缺失节点”，安装工作流所需的其他公开节点包，然后再次重启 ComfyUI。
-
-Manager 只能安装节点包和 Python 依赖，不能代替用户接受模型许可或自动安装本页列出的模型文件。
-
-### 方式三：手工安装
-
-在 `ComfyUI/custom_nodes/` 下执行：
+在 PowerShell 中进入 `ComfyUI\custom_nodes`，执行：
 
 ```powershell
-git clone https://github.com/Liu-Bot24/ComfyUI-Smart-Removal.git
-cd ComfyUI-Smart-Removal
-python -m pip install -r requirements.txt
+git clone https://github.com/Liu-Bot24/ComfyUI-Region-Edit-Toolkit.git
+Set-Location .\ComfyUI-Region-Edit-Toolkit
+& "<ComfyUI 实际使用的 Python>" -m pip install -r requirements.txt
 ```
 
-必须使用 ComfyUI 自己的 Python 环境执行 `pip`。Windows Portable 应使用其 `python_embeded\python.exe`；整合包或启动器用户应使用该启动器实际调用的 Python，不要安装到系统 Python。
+常见的 Python 路径：
 
-安装后从原来的启动器重启 ComfyUI。
+- Windows 便携版：`ComfyUI_windows_portable\python_embeded\python.exe`
+- Python 虚拟环境：`ComfyUI\venv\Scripts\python.exe`
+- 启动器整合包：以启动器实际配置的 Python 路径为准
 
-## 工作流还需要的节点包
+安装完成后重启 ComfyUI。在节点搜索中输入 `图像分区` 或 `RegionEdit` 即可找到本工具包。
 
-除本仓库外，工作流使用以下已公开节点包：
-
-- [ComfyUI-KJNodes](https://github.com/kijai/ComfyUI-KJNodes)：遮罩叠加预览。
-- [ComfyUI-Impact-Pack](https://github.com/ltdrdata/ComfyUI-Impact-Pack)：`PreviewBridge` 遮罩编辑器和布尔控制。
-- [ComfyUI-Easy-Use](https://github.com/yolain/ComfyUI-Easy-Use)：遮罩非空判断。
-
-`SAM3_Detect`、`ReferenceLatent`、`Flux2Scheduler`、`ImageCompositeMasked` 等属于当前 ComfyUI 核心节点。若这些节点缺失，应先更新到支持 SAM3.1 和 FLUX.2 Klein 的新版 ComfyUI，而不是安装同名第三方节点。
-
-## 必需模型
-
-文件名必须与工作流一致：
-
-| 文件 | 放置目录 | 来源 |
-|---|---|---|
-| `sam3.1_multiplex_fp16.safetensors` | `ComfyUI/models/checkpoints/` | [Comfy-Org SAM3.1](https://huggingface.co/Comfy-Org/sam3.1/blob/main/checkpoints/sam3.1_multiplex_fp16.safetensors) |
-| `flux-2-klein-9b-fp8.safetensors` | `ComfyUI/models/diffusion_models/` | [Black Forest Labs FLUX.2 Klein 9B FP8](https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8) |
-| `qwen_3_8b_fp8mixed.safetensors` | `ComfyUI/models/text_encoders/` | [Comfy-Org 9B text encoder](https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-9b/blob/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors) |
-| `full_encoder_small_decoder.safetensors` | `ComfyUI/models/vae/` | [Black Forest Labs FLUX.2 small decoder](https://huggingface.co/black-forest-labs/FLUX.2-small-decoder/blob/main/full_encoder_small_decoder.safetensors) |
-
-FLUX.2 Klein 9B 的上游仓库可能要求登录并接受模型许可。本仓库不包含或重新分发任何模型权重。
-
-## SAM3 中文输入
-
-SAM3 的文本编码器使用英文。本节点包提供 `SAM Prompt Auto English (Offline)`：
-
-- 英文输入原样通过；
-- 中文输入使用本机 Argos Translate 中译英；
-- 工作流运行时不调用在线翻译服务，也不会自动下载语言模型。
-
-Manager 会根据 `requirements.txt` 安装 Argos Translate 程序库，但中译英语言模型需要一次性安装。在本插件目录内，用 ComfyUI 的 Python 执行：
+### 更新
 
 ```powershell
-python scripts/install_argos_zh_en.py
+Set-Location "<ComfyUI>\custom_nodes\ComfyUI-Region-Edit-Toolkit"
+git pull
+& "<ComfyUI 实际使用的 Python>" -m pip install -r requirements.txt
 ```
 
-脚本只在用户明确执行时联网下载 Argos 官方中译英语言包。安装完成后重启 ComfyUI。若不安装语言包，仍可直接给 SAM3 输入英文对象名称。
+更新后需要重启 ComfyUI。若界面仍保留旧控件，再硬刷新浏览器页面。
 
-## 使用顺序
+## 快速使用
 
-1. 上传一张原图。
-2. 在 SAM3 区域填写处理对象和保护对象。
-3. 保持“最终生成”关闭，先运行一次并检查自动遮罩和分块范围。
-4. 只有自动遮罩不准确时，才打开目标或保护遮罩编辑器进行修正并保存。
-5. 在集中控制区填写删除/替换要求。默认使用“标准”分块、外扩 32、羽化 8。
-6. 确认白色生成范围正确后开启“最终生成”，再次运行。
-7. 最终输出保持原图分辨率；遮罩范围外直接保留原图。
+### 局部编辑
 
-## 分块档位与合成参数
+```text
+选择区域
+→ 规划尺寸并裁切
+→ 使用图像编辑或生成节点处理裁块
+→ 处理差异、颜色或细节
+→ 严格坐标合成
+```
 
-- **保守（小块）**：显存不足或标准档运行失败时使用；区块较多。
-- **标准**：默认档位，适合先检查遮罩、分块范围和生成效果。
-- **大块（高显存）**：目标较大、需要更多完整上下文且显存充足时使用。
-- **超大块（慢速）**：尽量让大型完整目标进入更少的局部块。该档不会缩放原图，但显存占用和耗时会显著增加；即使在 24GB 显存设备上也可能接近显存上限、运行数分钟，并使 8188 界面或 API 在计算期间暂时无响应。它不是默认档位，也不保证任意目标都能合并为单块。
+局部结果进入严格合成前，应与原裁块保持相同的宽高和坐标空间。
 
-外扩决定模型需要重建的范围；羽化决定最终生成区域怎样渐变合回原图。羽化不扩大重建范围，分块之间的内部接缝由节点的归属与加权合并逻辑单独处理。
+### 手涂修正遮罩
 
-## 本节点包提供的节点
+```text
+自动遮罩
+→ RegionEditMaskEditorCanvas
+→ PreviewBridge
+→ 在 MaskEditor 中补画或擦除
+→ RegionEditMaskEditorApply
+→ 羽化或合成
+```
 
-- `Mask Region Tile Planner (Exact)`
-- `Get Region Tile (Exact)`
-- `Prepare Dynamic Region Tiles`
-- `Prepare Controlled Dynamic Region Tiles`
-- `Universal Local Edit Controls`
-- `Merge Dynamic Region Tiles (Normalized)`
-- `SAM Prompt Auto English (Offline)`
-- `Edit Instruction + Preserve Suffix`
-- `Universal SAM3 Scan Windows (Native)`
-- `SAM3 Detections to Native Regions`
-- `Merge SAM3 Window Masks (Exact)`
-- `Automatic + Manual Mask (Protected)`
+连接方法：
 
-当前归属合并逻辑要求每个核心像素只有一个所属块；相邻块在明确的内部接缝带内交叉渐变，生成范围之外不混入候选图。节点不会缩放整张原图。
+1. 将 `RegionEditMaskEditorCanvas` 的 `mask_editor_rgba` 接到 `PreviewBridge`。
+2. 在 `PreviewBridge` 中打开 MaskEditor，完成补画或擦除并保存。
+3. 将 `PreviewBridge` 的 `MASK` 接到 `RegionEditMaskEditorApply` 的 `edited_mask`。
 
-## 验证
+这条交互式手涂路径需要 [ComfyUI Impact Pack](https://github.com/ltdrdata/ComfyUI-Impact-Pack) 提供 `PreviewBridge`。
 
-开发者可在仓库根目录运行：
+### 大图多区域处理
+
+```text
+目标遮罩
+→ RegionEditTilePlanner
+→ RegionEditTileBatchPrepare
+→ 分别处理各个局部块
+→ RegionEditTileMerge
+```
+
+该流程适合原图较大、目标分散或单次模型输入尺寸受限的情况。
+
+## 示例工作流
+
+### 智能消除
+
+**[示例工作流：智能消除.json](workflows/examples/RegionEdit-Smart-Removal-Example.json)**
+
+该示例演示 SAM3 目标与保护区域识别、手工遮罩修正、多区域分块、本地 Klein 编辑、严格合成，以及只保存最终生成结果的安全输出链。
+
+![智能消除示例工作流全图](docs/assets/examples/regionedit-smart-removal-workflow.jpg)
+
+#### 效果对比
+
+![智能消除处理前后对比](docs/assets/examples/regionedit-smart-removal-before-after.jpg)
+
+<p align="center"><sub>移除目标电线，保留猫和其余场景，并保持原图分辨率。</sub></p>
+
+### 物品替换
+
+**[示例工作流：物品替换.json](workflows/examples/RegionEdit-Object-Replacement-Example.json)**
+
+该示例演示 SAM3 目标与可选保护区域识别、手工遮罩修正、单一上下文裁块、参考图引导的本地 Klein 编辑、差异遮罩、严格合成，以及最终结果保存。
+
+![物品替换示例工作流全图](docs/assets/examples/regionedit-object-replacement-workflow.jpg)
+
+#### 效果对比
+
+![物品替换处理前后对比](docs/assets/examples/regionedit-object-replacement-before-after.jpg)
+
+<p align="center"><sub>将桌面上的咖啡杯替换为一碗米饭，保留勺子和其余场景，并保持原图分辨率。</sub></p>
+
+导入后，可替换示例图片，并按本机模型目录选择 SAM3 与 Klein 模型即可运行。
+
+## 节点
+
+### Selection
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditFaceSelect` | 从人脸检测结果中选择指定人脸 |
+| `RegionEditDetectionsToRegionCrops` | 将检测框转换为区域裁块与坐标 |
+| `RegionEditImageGridWindows` | 按网格生成图像扫描窗口 |
+
+### Geometry
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditBoundedImageSizePlan` | 在指定像素范围内规划等比处理尺寸 |
+| `RegionEditExactIntegerDownscale` | 执行 16 对齐的整数倍缩小 |
+| `RegionEditFaceContextCrop` | 裁取包含周围上下文的人脸区域 |
+| `RegionEditTilePlanItem` | 读取分块计划中的指定项目 |
+
+### Mask
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditMaskSetCompose` | 合成一组处理遮罩 |
+| `RegionEditInteractiveMaskCompose` | 组合自动、手工与保护遮罩 |
+| `RegionEditAlignedDifferenceMask` | 从两张已对齐图像中提取差异遮罩 |
+| `RegionEditMaskEditorCanvas` | 生成供 MaskEditor 使用的手涂画布 |
+| `RegionEditMaskEditorApply` | 将手工编辑结果应用到自动遮罩 |
+| `RegionEditMaskContentGate` | 检查遮罩是否包含有效处理区域 |
+| `RegionEditBoundaryFeather4Side` | 分别控制裁块四条边的羽化宽度 |
+| `RegionEditProtectedOuterBoundaryFeather` | 羽化外围边界并保护核心区域 |
+
+### Face
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditFaceAdaptiveDifferenceMask` | 生成人脸自适应差异区与强制核心 |
+| `RegionEditFaceThresholdDifferenceMask` | 按阈值生成人脸差异区与强制核心 |
+| `RegionEditFaceIdentityConditioningMask` | 生成人脸身份参考遮罩 |
+| `RegionEditFaceEyeMaterialRestore` | 恢复或协调眼部内部材质 |
+| `RegionEditFaceStructureDelta` | 分析两张人脸之间的结构变化 |
+| `RegionEditFaceSemanticCrop` | 按人脸语义区域生成局部裁块 |
+
+### Tile
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditTilePlanner` | 根据目标遮罩规划多个处理块 |
+| `RegionEditBasicTileBatchPrepare` | 批量裁取计划中的图像和遮罩 |
+| `RegionEditTileBatchPrepare` | 按控制参数准备局部块、遮罩和坐标 |
+| `RegionEditTileMerge` | 将多个局部结果归一化后合回完整图像 |
+| `RegionEditWindowMaskMerge` | 将扫描窗口中的局部遮罩恢复到整图 |
+
+### Workflow
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditTileControlPreset` | 提供成组的分块控制参数 |
+| `RegionEditReferenceSourceSelector` | 选择实际使用的参考图来源 |
+| `RegionEditPromptRouteSelector` | 选择实际使用的 Prompt 来源 |
+
+### Composite
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditStrictCoordinateComposite` | 按坐标和遮罩将局部结果严格合回原图 |
+| `RegionEditWideSupportStrictComposite` | 在更宽的支持区域内执行严格坐标合成 |
+
+### Color & Detail
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditMaskedGlobalLabMatch` | 匹配遮罩区域内的整体 Lab 颜色 |
+| `RegionEditMaskedSpatialColorFieldMatch` | 匹配随空间变化的低频颜色分布 |
+| `RegionEditMaskedHighFrequencyTransfer` | 在限定区域内迁移高频纹理 |
+| `RegionEditSkinMicrotextureSynthesis` | 在皮肤区域生成受控微纹理 |
+| `RegionEditProtectedDetailHarmonizer` | 在保护指定区域的同时协调局部细节 |
+
+### Text
+
+| 节点 | 用途 |
+|---|---|
+| `RegionEditFacePromptContract` | 整理人脸编辑 Prompt |
+| `RegionEditPortraitPromptQualityGate` | 检查人像 Prompt 的必要信息 |
+| `RegionEditReplacementPromptContract` | 整理局部替换 Prompt |
+| `RegionEditPreservationPromptBuilder` | 构建需要保持不变的编辑约束 |
+| `RegionEditRequiredOfflineEnglish` | 对必填文本执行离线中译英 |
+| `RegionEditOptionalOfflineEnglish` | 对可选文本执行离线中译英 |
+
+## 离线中译英
+
+`requirements.txt` 会安装 Argos Translate，但中文到英文的语言模型需要单独安装。
+
+检查本机是否已经安装 `zh → en` 模型：
 
 ```powershell
-python -m unittest discover -s tests -v
+& "<ComfyUI 实际使用的 Python>" scripts\install_argos_zh_en.py --check
 ```
+
+主动下载并安装：
+
+```powershell
+& "<ComfyUI 实际使用的 Python>" scripts\install_argos_zh_en.py
+```
+
+安装完成后重启 ComfyUI。不使用离线翻译节点时，无需安装该语言模型。
+
+## 使用注意事项
+
+- 差异分析和严格合成所使用的图像、遮罩、裁块尺寸与坐标必须对应。
+- 外部编辑结果如果改变了宽高或裁切范围，应先恢复到原裁块尺寸。
+- 尺寸或坐标不一致时，严格合成节点会停止执行并给出明确错误。
+- 需要保持不变的区域应通过保护遮罩明确指定。
+- Python 节点或前端扩展更新后，必须重启 ComfyUI。

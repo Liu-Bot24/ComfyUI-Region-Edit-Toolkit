@@ -2,7 +2,7 @@ import { ComfyApp, app } from "../../scripts/app.js";
 
 
 app.registerExtension({
-    name: "MaskRegionTilePlanner.SingleMaskEditorButton",
+    name: "RegionEditToolkit.SingleMaskEditorButton",
 
     nodeCreated(node) {
         if (node.comfyClass !== "PreviewBridge") {

@@ -1,0 +1,35 @@
+{
+  "format_version": 1,
+  "unique_legacy_id_count": 22,
+  "workflows": {
+    "smart_removal": [
+      "MaskRegionTilePlannerExact",
+      "UniversalLocalEditTileControls",
+      "UniversalRegionTileBatchControlledExact",
+      "UniversalRegionWeightedMergeExact",
+      "UniversalSAMPromptAutoEnglish"
+    ],
+    "face_local_dual_reference": [
+      "FaceLocalDetailHarmonizer",
+      "FaceLocalFaceContextSquareCrop",
+      "FaceLocalImageSourceSelector",
+      "FaceLocalManualAdaptiveMaskCorrection",
+      "FaceLocalMaskEditorCanvas",
+      "FaceLocalOuterBoundaryFeather",
+      "FaceLocalSelectFace",
+      "FaceLocalStrictComposite",
+      "FaceLocalSyntheticSkinMicrotexture",
+      "FaceLocalThresholdDifferenceMask"
+    ],
+    "semantic_object_replacement": [
+      "SemanticObjectDifferenceMaskExact",
+      "SemanticObjectEditorSizePlan",
+      "SemanticObjectManualMaskCorrection",
+      "SemanticObjectMaskEditorCanvas",
+      "SemanticObjectOptionalSAMPrompt",
+      "SemanticObjectReplacementPromptContract",
+      "SemanticObjectStrictCompositeExact",
+      "UniversalSAMPromptAutoEnglish"
+    ]
+  }
+}

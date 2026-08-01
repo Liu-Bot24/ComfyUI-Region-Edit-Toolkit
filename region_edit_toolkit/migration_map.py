@@ -1,0 +1,52 @@
+"""Documentation-only mapping from retired node IDs to the pure v2 IDs.
+
+This module is intentionally not imported by the ComfyUI registry.  It exists
+only for workflow migration, tests, and release documentation; none of the
+retired IDs are registered as usable nodes.
+"""
+
+LEGACY_TO_CANONICAL_NODE_IDS = {
+    "MaskRegionTilePlannerExact": "RegionEditTilePlanner",
+    "MaskRegionTileAtIndexExact": "RegionEditTilePlanItem",
+    "UniversalImageGridWindowsExact": "RegionEditImageGridWindows",
+    "UniversalBoundingBoxCropBatchExact": "RegionEditDetectionsToRegionCrops",
+    "UniversalMaskGridMergeExact": "RegionEditWindowMaskMerge",
+    "UniversalMaskUnionManualProtectExact": "RegionEditInteractiveMaskCompose",
+    "UniversalRegionTileBatchExact": "RegionEditBasicTileBatchPrepare",
+    "UniversalRegionTileBatchControlledExact": "RegionEditTileBatchPrepare",
+    "UniversalLocalEditTileControls": "RegionEditTileControlPreset",
+    "UniversalRegionWeightedMergeExact": "RegionEditTileMerge",
+    "UniversalAppendPreservationPrompt": "RegionEditPreservationPromptBuilder",
+    "UniversalSAMPromptAutoEnglish": "RegionEditRequiredOfflineEnglish",
+    "FaceLocalAdaptiveDifferenceMask": "RegionEditFaceAdaptiveDifferenceMask",
+    "FaceLocalComposeMask": "RegionEditMaskSetCompose",
+    "FaceLocalContextColorHarmonize": "RegionEditMaskedGlobalLabMatch",
+    "FaceLocalDetailHarmonizer": "RegionEditProtectedDetailHarmonizer",
+    "FaceLocalExactIntegerDownscale": "RegionEditExactIntegerDownscale",
+    "FaceLocalFaceContextSquareCrop": "RegionEditFaceContextCrop",
+    "FaceLocalIdentityConditioningMask": "RegionEditFaceIdentityConditioningMask",
+    "FaceLocalImageSourceSelector": "RegionEditReferenceSourceSelector",
+    "FaceLocalManualAdaptiveMaskCorrection": "RegionEditMaskEditorApply",
+    "FaceLocalMaskEditorCanvas": "RegionEditMaskEditorCanvas",
+    "FaceLocalNonEmptyMaskGate": "RegionEditMaskContentGate",
+    "FaceLocalOriginalHighFrequencyTransfer": "RegionEditMaskedHighFrequencyTransfer",
+    "FaceLocalOuterBoundaryFeather": "RegionEditProtectedOuterBoundaryFeather",
+    "FaceLocalPromptContract": "RegionEditFacePromptContract",
+    "FaceLocalPromptQualityGate": "RegionEditPortraitPromptQualityGate",
+    "FaceLocalRouteSelector": "RegionEditPromptRouteSelector",
+    "FaceLocalSelectFace": "RegionEditFaceSelect",
+    "FaceLocalSemanticCrop": "RegionEditFaceSemanticCrop",
+    "FaceLocalSourceEyeMaterialRestore": "RegionEditFaceEyeMaterialRestore",
+    "FaceLocalStrictComposite": "RegionEditStrictCoordinateComposite",
+    "FaceLocalStructureDelta": "RegionEditFaceStructureDelta",
+    "FaceLocalSyntheticSkinMicrotexture": "RegionEditSkinMicrotextureSynthesis",
+    "FaceLocalThresholdDifferenceMask": "RegionEditFaceThresholdDifferenceMask",
+    "SemanticObjectContextColorMatch": "RegionEditMaskedSpatialColorFieldMatch",
+    "SemanticObjectDifferenceMaskExact": "RegionEditAlignedDifferenceMask",
+    "SemanticObjectEditorSizePlan": "RegionEditBoundedImageSizePlan",
+    "SemanticObjectManualMaskCorrection": "RegionEditMaskEditorApply",
+    "SemanticObjectMaskEditorCanvas": "RegionEditMaskEditorCanvas",
+    "SemanticObjectOptionalSAMPrompt": "RegionEditOptionalOfflineEnglish",
+    "SemanticObjectReplacementPromptContract": "RegionEditReplacementPromptContract",
+    "SemanticObjectStrictCompositeExact": "RegionEditWideSupportStrictComposite",
+}

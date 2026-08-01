@@ -1,0 +1,1409 @@
+{
+  "format_version": 1,
+  "legacy_node_count": 43,
+  "nodes": {
+    "FaceLocalAdaptiveDifferenceMask": {
+      "class_name": "FaceLocalAdaptiveDifferenceMask",
+      "function": "build",
+      "category": "face local edit/2 mask",
+      "required_inputs": [
+        "source_local",
+        "generated_local",
+        "selection",
+        "processing_support_mask",
+        "full_target_mask",
+        "x",
+        "y",
+        "width",
+        "height",
+        "low_threshold",
+        "high_threshold",
+        "difference_blur_face_ratio",
+        "connectivity_close_face_ratio"
+      ],
+      "optional_inputs": [
+        "generated_face_mask",
+        "core_guard_face_ratio",
+        "compatibility_band_face_ratio",
+        "difference_full_strength_face_ratio",
+        "difference_outer_limit_face_ratio",
+        "boundary_suppression_face_ratio"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "automatic_union_mask",
+        "mandatory_head_face_core",
+        "adaptive_transition_mask",
+        "red_cyan_difference_preview",
+        "processing_support_passthrough",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "b293da01d6afc7597e6498da24427c0c5ba77acae21945249b6ade547cdab464"
+    },
+    "FaceLocalComposeMask": {
+      "class_name": "FaceLocalComposeMask",
+      "function": "compose",
+      "category": "face local edit/2 mask",
+      "required_inputs": [
+        "image",
+        "automatic_mask",
+        "manual_add_mask",
+        "manual_erase_mask",
+        "protection_mask",
+        "support_threshold"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "final_target_mask",
+        "confirmed_protection_mask",
+        "mask_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "691965e2495d8903dd52fdc6567af2eccf38f3ca14f89b44f55aa139b918a45e"
+    },
+    "FaceLocalContextColorHarmonize": {
+      "class_name": "FaceLocalContextColorHarmonize",
+      "function": "harmonize",
+      "category": "face local edit/4 continuity",
+      "required_inputs": [
+        "target",
+        "reference",
+        "generation_mask",
+        "strength",
+        "minimum_context_pixels"
+      ],
+      "optional_inputs": [
+        "color_harmonization_contract_version"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "harmonized_image",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "6fca1f9b084814c49fadb2c5f651bf899e3bc554b1df2c734d3391c0221b06e8"
+    },
+    "FaceLocalDetailHarmonizer": {
+      "class_name": "FaceLocalDetailHarmonizer",
+      "function": "harmonize",
+      "category": "face local edit/8 final output",
+      "required_inputs": [
+        "image",
+        "protected_mask",
+        "enabled",
+        "detail_radius",
+        "outside_detail_retention",
+        "strong_edge_protection"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "detail_harmonized_image",
+        "protected_composite_region",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "1267d1b8f50d410c91452cbf1978d845b2b3ddfb2e113e06170af72234dc353f"
+    },
+    "FaceLocalExactIntegerDownscale": {
+      "class_name": "FaceLocalExactIntegerDownscale",
+      "function": "downscale",
+      "category": "face local edit/3 generation",
+      "required_inputs": [
+        "image",
+        "maximum_short_edge"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE"
+      ],
+      "return_names": [
+        "model_image"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "1b04e3235f63c4fa3958411272cea1cc4f468470a51cf6c501564c41a9f2d889"
+    },
+    "FaceLocalFaceContextSquareCrop": {
+      "class_name": "FaceLocalFaceContextSquareCrop",
+      "function": "crop",
+      "category": "face local edit/2 reference condition",
+      "required_inputs": [
+        "image",
+        "selection",
+        "crop_size"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "face_context_crop",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "b9b4329a377d1f104511320bd8dd88872dd49c687ce0b3c53f1f83f601291ea2"
+    },
+    "FaceLocalIdentityConditioningMask": {
+      "class_name": "FaceLocalIdentityConditioningMask",
+      "function": "build",
+      "category": "face local edit/2 reference condition",
+      "required_inputs": [
+        "image",
+        "face_landmarks",
+        "base_mask",
+        "face_index",
+        "eye_exclusion_mode",
+        "eye_exclusion_scale"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "identity_conditioning_mask",
+        "excluded_eye_material_mask",
+        "preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "f190eb0ab12d1dd8fbe3c3b4bfefaa7049cdb103c53be1ab602f0316349e7642"
+    },
+    "FaceLocalImageSourceSelector": {
+      "class_name": "FaceLocalImageSourceSelector",
+      "function": "select",
+      "category": "face local edit/0 route",
+      "required_inputs": [
+        "direct_identity_reference",
+        "gpt_identity_reference",
+        "enable_local_preprocess",
+        "enable_gpt_preprocess"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE"
+      ],
+      "return_names": [
+        "selected_reference"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "e82e6e6440b004c0a94cd01d66d088483fac70d91ac80a947d0cd1b817817178"
+    },
+    "FaceLocalManualAdaptiveMaskCorrection": {
+      "class_name": "FaceLocalManualAdaptiveMaskCorrection",
+      "function": "correct",
+      "category": "face local edit/2 mask",
+      "required_inputs": [
+        "difference_image",
+        "automatic_mask",
+        "edited_mask",
+        "mandatory_core_mask",
+        "support_threshold"
+      ],
+      "optional_inputs": [
+        "processing_support_mask",
+        "apply_manual_editor"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "final_mask",
+        "manual_add_mask",
+        "manual_erase_mask",
+        "correction_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "2f0fb401b8f1bddf93de41aeefa059ddf90660bbc4c484b32c5bb49c07dd55bf"
+    },
+    "FaceLocalMaskEditorCanvas": {
+      "class_name": "FaceLocalMaskEditorCanvas",
+      "function": "prepare",
+      "category": "face local edit/2 mask",
+      "required_inputs": [
+        "source_image",
+        "generated_image",
+        "automatic_mask"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "IMAGE",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "mask_editor_rgba",
+        "red_cyan_visible_preview",
+        "automatic_mask_passthrough",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "069b9b2120d012f124d323bf873e3d84298060dd942f0b4dbc1ea58dec9a565c"
+    },
+    "FaceLocalNonEmptyMaskGate": {
+      "class_name": "FaceLocalNonEmptyMaskGate",
+      "function": "validate",
+      "category": "face local edit/2 mask",
+      "required_inputs": [
+        "mask",
+        "support_threshold",
+        "minimum_fraction"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "validated_mask",
+        "mask_report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "e6170bbb76b7f7ae9f9b45d767ff69107a64c2b4a05c2a81881c37165013264e"
+    },
+    "FaceLocalOriginalHighFrequencyTransfer": {
+      "class_name": "FaceLocalOriginalHighFrequencyTransfer",
+      "function": "transfer",
+      "category": "face local edit/3 detail",
+      "required_inputs": [
+        "generated_image",
+        "original_image",
+        "mask",
+        "high_frequency_radius",
+        "detail_strength",
+        "edge_protection_start",
+        "edge_protection_end"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "IMAGE",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "detail_restored_image",
+        "high_frequency_preview",
+        "effective_detail_mask",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "66b8cb05c565debd6cbb35005f06a561e2dc7000067b8767c7c609e93b76dcda"
+    },
+    "FaceLocalOuterBoundaryFeather": {
+      "class_name": "FaceLocalOuterBoundaryFeather",
+      "function": "feather",
+      "category": "face local edit/2 mask",
+      "required_inputs": [
+        "corrected_mask",
+        "mandatory_core_mask",
+        "processing_support_mask",
+        "selection",
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "optional_inputs": [
+        "axis_feather_profile",
+        "feather_width_mode",
+        "outer_feather_crop_ratio",
+        "fixed_feather_pixels",
+        "minimum_feather_pixels",
+        "maximum_feather_pixels",
+        "top_feather_multiplier",
+        "bottom_feather_multiplier",
+        "left_feather_multiplier",
+        "right_feather_multiplier",
+        "feather_at_original_image_boundary",
+        "outer_feather_face_ratio",
+        "internal_difference_feather_crop_ratio",
+        "long_edge_feather_percent",
+        "short_edge_feather_percent",
+        "top_feather_adjustment_percent",
+        "bottom_feather_adjustment_percent",
+        "left_feather_adjustment_percent",
+        "right_feather_adjustment_percent",
+        "top_feather_percent",
+        "bottom_feather_percent",
+        "left_feather_percent",
+        "right_feather_percent"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "final_feathered_mask",
+        "outer_boundary_feather_ramp",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "d09e3b7f6df7977c497d3970116348923ad4f1567f054c65f312c76495637894"
+    },
+    "FaceLocalPromptContract": {
+      "class_name": "FaceLocalPromptContract",
+      "function": "build",
+      "category": "face local edit/3 prompt",
+      "required_inputs": [
+        "edit_instruction",
+        "change_eyes",
+        "change_nose",
+        "change_mouth",
+        "change_jaw",
+        "change_brows"
+      ],
+      "optional_inputs": [
+        "prompt_mode",
+        "identity_goal",
+        "preserve_source_eye_interior",
+        "preserve_source_face_lighting"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING",
+        "STRING"
+      ],
+      "return_names": [
+        "contract_prompt",
+        "structure_groups_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "3e44dd9b54607757183dc42163ccc4479201a52743241f99252802c66d92062b"
+    },
+    "FaceLocalPromptQualityGate": {
+      "class_name": "FaceLocalPromptQualityGate",
+      "function": "validate",
+      "category": "face local edit/3 prompt",
+      "required_inputs": [
+        "prompt",
+        "minimum_characters",
+        "minimum_sentences",
+        "maximum_sentences"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING",
+        "STRING"
+      ],
+      "return_names": [
+        "validated_prompt",
+        "quality_report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "cd001d2ab6392d76d0051c553c3a1a12e1a8bc80f10d37d39708e6bdd94a5697"
+    },
+    "FaceLocalRouteSelector": {
+      "class_name": "FaceLocalRouteSelector",
+      "function": "select",
+      "category": "face local edit/0 route",
+      "required_inputs": [
+        "route_mode",
+        "n1_prompt_en",
+        "n1_prompt_zh",
+        "r1_prompt_en",
+        "r1_prompt_zh",
+        "r2_n2_prompt_en",
+        "r2_n2_prompt_zh",
+        "n2_candidate_user_approved",
+        "n2_candidate_id"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING",
+        "STRING",
+        "BOOLEAN",
+        "BOOLEAN",
+        "BOOLEAN",
+        "STRING"
+      ],
+      "return_names": [
+        "selected_prompt_en",
+        "selected_prompt_zh",
+        "use_identity_reference",
+        "reference_priority",
+        "preserve_source_eye_interior",
+        "route_report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "35f3e070b9024f2baf56fc4a303f41fb53a0d67fb0e457450fc3b6ff3f862af9"
+    },
+    "FaceLocalSelectFace": {
+      "class_name": "FaceLocalSelectFace",
+      "function": "select",
+      "category": "face local edit/1 locate",
+      "required_inputs": [
+        "image",
+        "face_landmarks",
+        "face_index",
+        "minimum_face_short_side"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "FACE_LOCAL_SELECTION",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "selection",
+        "automatic_face_mask",
+        "selection_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "fa27aa95d5b34de274ec752378ff93a0bebfa4728806bec857827c3b1fdcb1fe"
+    },
+    "FaceLocalSemanticCrop": {
+      "class_name": "FaceLocalSemanticCrop",
+      "function": "plan",
+      "category": "face local edit/4 plan",
+      "required_inputs": [
+        "image",
+        "selection",
+        "final_target_mask",
+        "protection_mask",
+        "edit_region_mode",
+        "tile_profile",
+        "context_left_right",
+        "context_top",
+        "context_bottom",
+        "generation_grow_ratio",
+        "composite_grow_ratio",
+        "feather_ratio",
+        "minimum_safe_margin"
+      ],
+      "optional_inputs": [
+        "context_policy",
+        "writeback_scope_contract_version",
+        "generation_target_megapixels"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "MASK",
+        "MASK",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "local_image",
+        "local_generation_mask",
+        "full_composite_mask",
+        "full_composite_alpha",
+        "x",
+        "y",
+        "width",
+        "height",
+        "crop_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "411655ba03b00de5de7372e4cf27be546af8531c3a45f91938c1372bf102aa22"
+    },
+    "FaceLocalSourceEyeMaterialRestore": {
+      "class_name": "FaceLocalSourceEyeMaterialRestore",
+      "function": "restore",
+      "category": "face local edit/4 continuity",
+      "required_inputs": [
+        "source_local",
+        "generated_local",
+        "local_generation_mask",
+        "source_landmarks",
+        "generated_landmarks",
+        "source_face_index",
+        "generated_face_index",
+        "crop_x",
+        "crop_y",
+        "iris_scale",
+        "feather_pixels"
+      ],
+      "optional_inputs": [
+        "source_eye_material_restore_contract_version"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "restored_local",
+        "iris_restore_alpha",
+        "preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "bd055664db899734c994d27e4bdb6c927c1eb606288f46afd6cafe042265e5bb"
+    },
+    "FaceLocalStrictComposite": {
+      "class_name": "FaceLocalStrictComposite",
+      "function": "composite",
+      "category": "face local edit/5 strict merge",
+      "required_inputs": [
+        "original",
+        "generated_local",
+        "full_composite_mask",
+        "full_composite_alpha",
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "optional_inputs": [
+        "local_composite_alpha"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "final_image",
+        "strict_composite_mask",
+        "difference_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "949d0d226a42313eed3bc8ff7cecaae49a8f1d084581e843c0325dbaf704290c"
+    },
+    "FaceLocalStructureDelta": {
+      "class_name": "FaceLocalStructureDelta",
+      "function": "compare",
+      "category": "face local edit/6 audit",
+      "required_inputs": [
+        "source_landmarks",
+        "result_landmarks",
+        "source_face_index",
+        "result_face_index",
+        "advisory_threshold"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING",
+        "INT",
+        "BOOLEAN"
+      ],
+      "return_names": [
+        "structure_delta_json",
+        "groups_above_threshold",
+        "automatic_support_only"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "d569ff71ba3e675ceb055058baf689ab3e1fc6454ecdd0084792e564195cecca"
+    },
+    "FaceLocalSyntheticSkinMicrotexture": {
+      "class_name": "FaceLocalSyntheticSkinMicrotexture",
+      "function": "synthesize",
+      "category": "face local edit/3 detail",
+      "required_inputs": [
+        "generated_image",
+        "source_skin_patch",
+        "mask",
+        "source_iod",
+        "target_iod",
+        "detail_strength",
+        "quantile_blend",
+        "seed"
+      ],
+      "optional_inputs": [
+        "synthesis_mode",
+        "dog_sigma_small",
+        "dog_sigma_large"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "IMAGE",
+        "IMAGE",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "detail_restored_image",
+        "synthesized_texture_preview",
+        "source_band_preview",
+        "effective_detail_mask",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "2c1e43f2218a6dd6bf7c8271e538dc60aa6636c6223e6a72b45c473bdc2e8be2"
+    },
+    "FaceLocalThresholdDifferenceMask": {
+      "class_name": "FaceLocalThresholdDifferenceMask",
+      "function": "build",
+      "category": "face local edit/2 mask",
+      "required_inputs": [
+        "source_local",
+        "generated_local",
+        "processing_support_mask",
+        "x",
+        "y",
+        "width",
+        "height",
+        "threshold_level"
+      ],
+      "optional_inputs": [
+        "selection",
+        "full_target_mask",
+        "generated_face_mask",
+        "core_guard_face_ratio",
+        "mask_mode"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "automatic_union_mask",
+        "mandatory_head_face_core",
+        "threshold_difference_transition",
+        "red_cyan_difference_preview",
+        "processing_support_passthrough",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "dd3bbb357c9d381e5cb113b6a996c1d6e4818ad83d3812c1ad31f37360a74754"
+    },
+    "MaskRegionTileAtIndexExact": {
+      "class_name": "MaskRegionTileAtIndex",
+      "function": "get_tile",
+      "category": "mask/region tiles",
+      "required_inputs": [
+        "plan",
+        "index"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "STRING"
+      ],
+      "return_names": [
+        "ownership_mask",
+        "x",
+        "y",
+        "width",
+        "height",
+        "component_id",
+        "tile_index",
+        "metadata_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "0b6bdd2e9f18c66b66681b52121bf28758c76134cf439e5bfae8dd75597495cf"
+    },
+    "MaskRegionTilePlannerExact": {
+      "class_name": "MaskRegionTilePlanner",
+      "function": "plan",
+      "category": "mask/region tiles",
+      "required_inputs": [
+        "mask",
+        "max_long_side",
+        "max_short_side",
+        "max_pixels",
+        "context_pixels",
+        "multiple",
+        "support_threshold",
+        "min_component_pixels",
+        "min_target_extent"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "REGION_TILE_PLAN",
+        "INT",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "plan",
+        "tile_count",
+        "ownership_union",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "4910fec65feea70d64224c0413696ce09ef10b423a723b547b3f3b7005c0ccdd"
+    },
+    "SemanticObjectContextColorMatch": {
+      "class_name": "SemanticObjectContextColorMatch",
+      "function": "match",
+      "category": "semantic object replacement/color",
+      "required_inputs": [
+        "source_local",
+        "generated_local",
+        "editable_support_mask",
+        "correction_sigma",
+        "maximum_correction"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "context_matched_generated",
+        "smooth_correction_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "659c10580a282dc486a4cbebd1742498cd36ce055304a9c6ec169fad5488c58a"
+    },
+    "SemanticObjectDifferenceMaskExact": {
+      "class_name": "SemanticObjectDifferenceMaskExact",
+      "function": "build",
+      "category": "semantic object replacement/mask",
+      "required_inputs": [
+        "source_local",
+        "generated_local",
+        "target_core_mask",
+        "protection_mask",
+        "editable_support_mask",
+        "threshold_level",
+        "difference_expand"
+      ],
+      "optional_inputs": [
+        "contract_version"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "automatic_replacement_mask",
+        "bounded_difference_mask",
+        "red_cyan_difference_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "6b8f84394b02daecdc7ffd6ab28629d7d00a7fc3e2290ac8622121153005abd4"
+    },
+    "SemanticObjectEditorSizePlan": {
+      "class_name": "SemanticObjectEditorSizePlan",
+      "function": "plan",
+      "category": "semantic object replacement/crop",
+      "required_inputs": [
+        "image",
+        "min_megapixels",
+        "max_megapixels",
+        "multiple"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "BOOLEAN",
+        "STRING"
+      ],
+      "return_names": [
+        "original_width",
+        "original_height",
+        "editor_width",
+        "editor_height",
+        "resize_required",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "992ad3840e4a9b663777c55c4a991b4dbde367bad559fbfc6c3ab27f679356d9"
+    },
+    "SemanticObjectManualMaskCorrection": {
+      "class_name": "SemanticObjectManualMaskCorrection",
+      "function": "correct",
+      "category": "semantic object replacement/mask",
+      "required_inputs": [
+        "difference_image",
+        "automatic_mask",
+        "edited_mask",
+        "processing_support_mask",
+        "support_threshold"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "final_mask",
+        "manual_add_mask",
+        "manual_erase_mask",
+        "correction_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "1ba213d54cb6f2d6fcc21c3141b3763255dbca4d6eb2efb50cb0f55a173c647f"
+    },
+    "SemanticObjectMaskEditorCanvas": {
+      "class_name": "SemanticObjectMaskEditorCanvas",
+      "function": "prepare",
+      "category": "semantic object replacement/mask",
+      "required_inputs": [
+        "source_image",
+        "generated_image",
+        "automatic_mask"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "IMAGE",
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "mask_editor_rgba",
+        "red_cyan_visible_preview",
+        "automatic_mask_passthrough",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "069b9b2120d012f124d323bf873e3d84298060dd942f0b4dbc1ea58dec9a565c"
+    },
+    "SemanticObjectOptionalSAMPrompt": {
+      "class_name": "SemanticObjectOptionalSAMPrompt",
+      "function": "translate",
+      "category": "semantic object replacement/selection",
+      "required_inputs": [
+        "text"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING",
+        "BOOLEAN"
+      ],
+      "return_names": [
+        "sam_english_prompt",
+        "has_text"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "ce1004b9a08bf72cf28154c973d54dcf5ea03930bb114081ae9ff26774e2d4e9"
+    },
+    "SemanticObjectReplacementPromptContract": {
+      "class_name": "SemanticObjectReplacementPromptContract",
+      "function": "build",
+      "category": "semantic object replacement/prompt",
+      "required_inputs": [
+        "replacement_instruction"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING",
+        "STRING",
+        "STRING"
+      ],
+      "return_names": [
+        "klein_prompt",
+        "gpt_text_only_prompt",
+        "gpt_reference_prompt"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "872fb8fc57bb4a9c116ecea8fb55aebf54e7038f5195b8bc6e85b703ae12bdad"
+    },
+    "SemanticObjectStrictCompositeExact": {
+      "class_name": "SemanticObjectStrictCompositeExact",
+      "function": "composite",
+      "category": "semantic object replacement/composite",
+      "required_inputs": [
+        "original",
+        "source_local",
+        "generated_local",
+        "selected_local_mask",
+        "target_core_mask",
+        "generation_support_mask",
+        "writeback_support_mask",
+        "protection_mask",
+        "manual_erase_mask",
+        "x",
+        "y",
+        "width",
+        "height",
+        "top_feather_percent",
+        "bottom_feather_percent",
+        "left_feather_percent",
+        "right_feather_percent"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "MASK",
+        "MASK",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "final_image",
+        "strict_full_resolution_mask",
+        "full_resolution_alpha",
+        "clean_local_crop",
+        "wide_support_alpha",
+        "outer_crop_ramp",
+        "difference_preview",
+        "report_json"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "86ba13832f727feb75235798ff2a101bbf7683fae94f17e859b78c9e095a012e"
+    },
+    "UniversalAppendPreservationPrompt": {
+      "class_name": "AppendPreservationPrompt",
+      "function": "build",
+      "category": "conditioning/universal local edit",
+      "required_inputs": [
+        "edit_instruction"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING"
+      ],
+      "return_names": [
+        "complete_prompt"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "838f34e1229210602cad2191752320df47ff68e514380fee80daee836369bdc8"
+    },
+    "UniversalBoundingBoxCropBatchExact": {
+      "class_name": "BoundingBoxCropBatch",
+      "function": "crop",
+      "category": "image/universal local edit",
+      "required_inputs": [
+        "image",
+        "bboxes",
+        "minimum_score",
+        "context_pixels",
+        "multiple",
+        "deduplicate_iou"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "STRING"
+      ],
+      "return_names": [
+        "native_regions",
+        "x",
+        "y",
+        "width",
+        "height",
+        "report_json"
+      ],
+      "output_is_list": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "schema_sha256": "f6dbb8ff0438f7f6edd1af85ab13fd44edb7915c8ad2cb2489854d6d88152a69"
+    },
+    "UniversalImageGridWindowsExact": {
+      "class_name": "ImageGridWindows",
+      "function": "split",
+      "category": "image/universal local edit",
+      "required_inputs": [
+        "image",
+        "window_size",
+        "overlap"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "STRING"
+      ],
+      "return_names": [
+        "windows",
+        "x",
+        "y",
+        "width",
+        "height",
+        "report_json"
+      ],
+      "output_is_list": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "schema_sha256": "c187ba606c68f8a66e1975a39e5285ca241b3f3ae1a2dfd7fccc016a6ce38c94"
+    },
+    "UniversalLocalEditTileControls": {
+      "class_name": "LocalEditTileControls",
+      "function": "resolve",
+      "category": "image/universal local edit",
+      "required_inputs": [
+        "edit_instruction",
+        "tile_profile",
+        "default_grow",
+        "tile_grow_overrides",
+        "default_blur",
+        "tile_blur_overrides"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "STRING",
+        "INT",
+        "STRING",
+        "STRING"
+      ],
+      "return_names": [
+        "max_long_side",
+        "max_short_side",
+        "max_pixels",
+        "context_pixels",
+        "default_grow",
+        "tile_grow_overrides",
+        "default_blur",
+        "tile_blur_overrides",
+        "edit_instruction"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "8598eb7b0f069344b66fe4351d3e5946b9faec4acc2a92bffaa1e80314fd4976"
+    },
+    "UniversalMaskGridMergeExact": {
+      "class_name": "MaskGridMerge",
+      "function": "merge",
+      "category": "mask/universal local edit",
+      "required_inputs": [
+        "original_image",
+        "window_masks",
+        "x",
+        "y",
+        "width",
+        "height",
+        "detection_threshold",
+        "minimum_votes",
+        "allow_single_coverage"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "STRING"
+      ],
+      "return_names": [
+        "merged_mask",
+        "report_json"
+      ],
+      "output_is_list": [
+        false,
+        false
+      ],
+      "schema_sha256": "5147f3d8189259f2915b45ba065132034a83bcac59098ce806e1b44a27866175"
+    },
+    "UniversalMaskUnionManualProtectExact": {
+      "class_name": "MaskUnionManualProtect",
+      "function": "combine",
+      "category": "mask/universal local edit",
+      "required_inputs": [
+        "image",
+        "automatic_mask",
+        "manual_add_mask",
+        "manual_mode",
+        "support_threshold"
+      ],
+      "optional_inputs": [
+        "manual_erase_mask",
+        "protection_mask"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "MASK",
+        "MASK",
+        "MASK",
+        "MASK",
+        "IMAGE"
+      ],
+      "return_names": [
+        "final_target_mask",
+        "automatic_mask_resized",
+        "manual_mask_resized",
+        "protection_mask_resized",
+        "overlay"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "262054d1fb1780272aa63eb939e46ce71fe11e437b91bafe9387a45c5b3d4ac7"
+    },
+    "UniversalRegionTileBatchControlledExact": {
+      "class_name": "MaskRegionTileBatchControlled",
+      "function": "prepare_controlled",
+      "category": "mask/region tiles",
+      "required_inputs": [
+        "image",
+        "plan",
+        "protection_mask",
+        "default_grow",
+        "tile_grow_overrides",
+        "default_blur",
+        "tile_blur_overrides"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "MASK",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "STRING",
+        "IMAGE",
+        "MASK",
+        "MASK"
+      ],
+      "return_names": [
+        "tile_images",
+        "ownership_masks",
+        "protection_crops",
+        "x",
+        "y",
+        "width",
+        "height",
+        "grow",
+        "blur",
+        "tile_index",
+        "report_json",
+        "labeled_preview_images",
+        "shared_generation_masks",
+        "global_inward_alpha"
+      ],
+      "output_is_list": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false
+      ],
+      "schema_sha256": "a5c2af64d8ab25dede582256d51d115c610975c32bc6b9f86a8203de00b4b95f"
+    },
+    "UniversalRegionTileBatchExact": {
+      "class_name": "MaskRegionTileBatch",
+      "function": "prepare",
+      "category": "mask/region tiles",
+      "required_inputs": [
+        "image",
+        "plan",
+        "protection_mask",
+        "default_expand",
+        "tile_expansion_overrides"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "MASK",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "INT",
+        "STRING"
+      ],
+      "return_names": [
+        "tile_images",
+        "ownership_masks",
+        "protection_crops",
+        "x",
+        "y",
+        "width",
+        "height",
+        "grow",
+        "blur",
+        "tile_index",
+        "report_json"
+      ],
+      "output_is_list": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "schema_sha256": "9a1570e67adeff63ea0ac7d7978f0ac506fa93293547f83217e8d32c4ebeb722"
+    },
+    "UniversalRegionWeightedMergeExact": {
+      "class_name": "MaskRegionWeightedMerge",
+      "function": "merge",
+      "category": "image/universal local edit",
+      "required_inputs": [
+        "destination",
+        "candidate_tiles",
+        "composite_masks",
+        "x",
+        "y",
+        "width",
+        "height",
+        "support_cutoff",
+        "edge_ramp_pixels",
+        "edge_confidence_floor"
+      ],
+      "optional_inputs": [
+        "ownership_masks"
+      ],
+      "hidden_inputs": [],
+      "return_types": [
+        "IMAGE",
+        "MASK",
+        "IMAGE",
+        "IMAGE",
+        "STRING"
+      ],
+      "return_names": [
+        "merged_source",
+        "strict_union_mask",
+        "overlap_heatmap",
+        "ownership_map",
+        "report_json"
+      ],
+      "output_is_list": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "schema_sha256": "487da758b130f1c115afb4391333ddddef7295387f07181b7e86ea7233f485fe"
+    },
+    "UniversalSAMPromptAutoEnglish": {
+      "class_name": "SAMPromptAutoEnglish",
+      "function": "translate",
+      "category": "conditioning/universal local edit",
+      "required_inputs": [
+        "text"
+      ],
+      "optional_inputs": [],
+      "hidden_inputs": [],
+      "return_types": [
+        "STRING"
+      ],
+      "return_names": [
+        "sam_english_prompt"
+      ],
+      "output_is_list": [],
+      "schema_sha256": "9a317a902deabb0a26e44e652cbcf9cf483398c7e5bb146aae9034ba35e8aaf8"
+    }
+  }
+}

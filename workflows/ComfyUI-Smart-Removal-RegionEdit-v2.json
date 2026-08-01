@@ -1,33 +1,9 @@
 {
   "id": "c5275d32-f679-4c23-afd2-c9a64eb9c5f3",
   "revision": 0,
-  "last_node_id": 359,
-  "last_link_id": 41,
+  "last_node_id": 360,
+  "last_link_id": 55,
   "nodes": [
-    {
-      "id": 300,
-      "type": "MarkdownNote",
-      "pos": [
-        -1765.4116150547866,
-        -946.8826215107209
-      ],
-      "size": [
-        4150,
-        400
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "自动遮罩直接可用；编辑器只在需要修正时打开",
-      "properties": {},
-      "widgets_values": [
-        "## 使用顺序\n1. 在①上传原图，在②填写处理对象和保护对象；中文会自动转换为SAM3使用的英文。\n2. 在控制区选择分块、外扩和羽化，并在最下方填写编辑 Prompt。首次运行时保持“最终生成＝关”。\n3. 检查⑥遮罩和⑦分块范围；只有识别不准时才使用③或④修正遮罩。\n4. 如需放弃失败的手工遮罩，在集中控制区切换对应的“重置编辑遮罩”或“重置保护遮罩”，再运行一次；两边互不影响。\n5. 确认白色生成范围正确后，开启“最终生成”并再次运行。结果会在⑩预览并保存。\n\n> FLUX.2 Klein 9B 为4步蒸馏模型，采样步数固定为4。"
-      ],
-      "color": "#18334a",
-      "bgcolor": "#244d6b"
-    },
     {
       "id": 301,
       "type": "MarkdownNote",
@@ -40,7 +16,7 @@
         591.7863954227589
       ],
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -51,87 +27,6 @@
       ],
       "color": "#4a3518",
       "bgcolor": "#6b4d24"
-    },
-    {
-      "id": 353,
-      "type": "PreviewBridge",
-      "pos": [
-        -745.4840886324862,
-        148.3029526489661
-      ],
-      "size": [
-        650,
-        480
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "图像",
-          "name": "images",
-          "type": "IMAGE",
-          "link": 3
-        },
-        {
-          "label": "遮罩编辑器内部状态",
-          "name": "image",
-          "type": "STRING",
-          "widget": {
-            "name": "image"
-          },
-          "link": null
-        },
-        {
-          "label": "没有遮罩时暂停后续流程",
-          "name": "block",
-          "shape": 7,
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "block"
-          },
-          "link": null
-        },
-        {
-          "label": "新图片不沿用旧遮罩",
-          "name": "restore_mask",
-          "shape": 7,
-          "type": "COMBO",
-          "widget": {
-            "name": "restore_mask"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "图像",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "slot_index": 0,
-          "links": null
-        },
-        {
-          "label": "遮罩",
-          "name": "MASK",
-          "type": "MASK",
-          "slot_index": 1,
-          "links": [
-            7
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "ComfyUI-Impact-Pack",
-        "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
-        "Node name for S&R": "PreviewBridge"
-      },
-      "widgets_values": [
-        "$353-0",
-        false,
-        "never",
-        null
-      ]
     },
     {
       "id": 202,
@@ -170,6 +65,7 @@
       "outputs": [
         {
           "label": "双遮罩检查图",
+          "localized_name": "双遮罩检查图",
           "name": "双遮罩检查图",
           "type": "IMAGE",
           "links": [
@@ -207,197 +103,198 @@
       ],
       "size": [
         560,
-        340
+        370
       ],
       "flags": {},
       "order": 9,
       "mode": 0,
       "inputs": [
         {
-          "name": "原图",
           "label": "原图",
-          "localized_name": "原图",
+          "name": "原图",
           "type": "IMAGE",
           "link": 12
         },
         {
-          "name": "目标遮罩",
           "label": "目标遮罩",
-          "localized_name": "目标遮罩",
+          "name": "目标遮罩",
           "type": "MASK",
           "link": 13
         },
         {
-          "name": "保护遮罩",
           "label": "保护遮罩",
-          "localized_name": "保护遮罩",
+          "name": "保护遮罩",
           "type": "MASK",
           "link": 14
         },
         {
-          "name": "最长边上限",
           "label": "最长边上限",
-          "localized_name": "最长边上限",
+          "name": "最长边上限",
           "type": "INT",
+          "widget": {
+            "name": "最长边上限"
+          },
           "link": 15
         },
         {
-          "name": "最短边上限",
           "label": "最短边上限",
-          "localized_name": "最短边上限",
+          "name": "最短边上限",
           "type": "INT",
+          "widget": {
+            "name": "最短边上限"
+          },
           "link": 16
         },
         {
-          "name": "总像素上限",
           "label": "总像素上限",
-          "localized_name": "总像素上限",
+          "name": "总像素上限",
           "type": "INT",
+          "widget": {
+            "name": "总像素上限"
+          },
           "link": 17
         },
         {
-          "name": "上下文范围",
           "label": "上下文范围",
-          "localized_name": "上下文范围",
+          "name": "上下文范围",
           "type": "INT",
+          "widget": {
+            "name": "上下文范围"
+          },
           "link": 18
         },
         {
-          "name": "默认外扩",
           "label": "默认外扩",
-          "localized_name": "默认外扩",
+          "name": "默认外扩",
           "type": "INT",
           "link": 19
         },
         {
-          "name": "逐块外扩",
           "label": "逐块外扩",
-          "localized_name": "逐块外扩",
+          "name": "逐块外扩",
           "type": "STRING",
           "link": 20
         },
         {
-          "name": "默认羽化",
           "label": "默认羽化",
-          "localized_name": "默认羽化",
+          "name": "默认羽化",
           "type": "INT",
           "link": 21
         },
         {
-          "name": "逐块羽化",
           "label": "逐块羽化",
-          "localized_name": "逐块羽化",
+          "name": "逐块羽化",
           "type": "STRING",
           "link": 22
         }
       ],
       "outputs": [
         {
-          "name": "局部块图像",
           "label": "局部块图像",
           "localized_name": "局部块图像",
+          "name": "局部块图像",
           "type": "IMAGE",
           "links": [
             27
           ]
         },
         {
-          "name": "唯一归属遮罩",
           "label": "唯一归属遮罩",
           "localized_name": "唯一归属遮罩",
+          "name": "唯一归属遮罩",
           "type": "MASK",
           "links": [
             41
           ]
         },
         {
-          "name": "保护区局部遮罩",
           "label": "保护区局部遮罩",
           "localized_name": "保护区局部遮罩",
+          "name": "保护区局部遮罩",
           "type": "MASK",
           "links": null
         },
         {
-          "name": "横坐标",
           "label": "横坐标",
           "localized_name": "横坐标",
+          "name": "横坐标",
           "type": "INT",
           "links": [
             28
           ]
         },
         {
-          "name": "纵坐标",
           "label": "纵坐标",
           "localized_name": "纵坐标",
+          "name": "纵坐标",
           "type": "INT",
           "links": [
             29
           ]
         },
         {
-          "name": "宽度",
           "label": "宽度",
           "localized_name": "宽度",
+          "name": "宽度",
           "type": "INT",
           "links": [
             30
           ]
         },
         {
-          "name": "高度",
           "label": "高度",
           "localized_name": "高度",
+          "name": "高度",
           "type": "INT",
           "links": [
             31
           ]
         },
         {
-          "name": "外扩",
           "label": "外扩",
           "localized_name": "外扩",
+          "name": "外扩",
           "type": "INT",
           "links": null
         },
         {
-          "name": "羽化",
           "label": "羽化",
           "localized_name": "羽化",
+          "name": "羽化",
           "type": "INT",
           "links": null
         },
         {
-          "name": "带编号分块预览",
           "label": "带编号分块预览",
           "localized_name": "带编号分块预览",
+          "name": "带编号分块预览",
           "type": "IMAGE",
           "links": [
             23
           ]
         },
         {
-          "name": "实际生成范围预览",
           "label": "实际生成范围预览",
           "localized_name": "实际生成范围预览",
+          "name": "实际生成范围预览",
           "type": "IMAGE",
           "links": [
             24
           ]
         },
         {
-          "name": "共享生成遮罩",
           "label": "共享生成遮罩",
           "localized_name": "共享生成遮罩",
+          "name": "共享生成遮罩",
           "type": "MASK",
           "links": [
             39
           ]
         },
         {
-          "name": "全图内向羽化遮罩",
           "label": "全图内向羽化遮罩",
           "localized_name": "全图内向羽化遮罩",
+          "name": "全图内向羽化遮罩",
           "type": "MASK",
           "links": [
             40
@@ -441,11 +338,12 @@
         500
       ],
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
           "label": "图像",
+          "localized_name": "图像",
           "name": "images",
           "type": "IMAGE",
           "link": 23
@@ -454,6 +352,7 @@
       "outputs": [
         {
           "label": "images",
+          "localized_name": "images",
           "name": "images",
           "type": "IMAGE",
           "slot_index": 0,
@@ -479,11 +378,12 @@
         500
       ],
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
           "label": "图像",
+          "localized_name": "图像",
           "name": "images",
           "type": "IMAGE",
           "link": 24
@@ -492,6 +392,7 @@
       "outputs": [
         {
           "label": "images",
+          "localized_name": "images",
           "name": "images",
           "type": "IMAGE",
           "slot_index": 0,
@@ -506,130 +407,227 @@
       "widgets_values": []
     },
     {
-      "id": 201,
-      "type": "356e1beb-14f1-44ff-b7e4-74cc538d8d2c",
+      "id": 41,
+      "type": "SaveImage",
       "pos": [
-        486.5149801289874,
-        115.4116150547863
+        1120.5079293285494,
+        236.5673207296967
       ],
       "size": [
-        590,
-        520
+        488.12583360273516,
+        399.3350488693252
       ],
       "flags": {},
-      "order": 10,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
-          "name": "编辑要求",
-          "label": "编辑要求",
-          "localized_name": "编辑要求",
+          "label": "图像",
+          "localized_name": "图片",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 35
+        },
+        {
+          "label": "保存文件夹与文件名前缀",
+          "localized_name": "文件名前缀",
+          "name": "filename_prefix",
           "type": "STRING",
-          "link": 26
-        },
-        {
-          "name": "原图",
-          "label": "原图",
-          "localized_name": "原图",
-          "type": "IMAGE",
-          "link": 25
-        },
-        {
-          "name": "局部块图像",
-          "label": "局部块图像",
-          "localized_name": "局部块图像",
-          "type": "IMAGE",
-          "link": 27
-        },
-        {
-          "name": "共享生成遮罩",
-          "label": "共享生成遮罩",
-          "localized_name": "共享生成遮罩",
-          "type": "MASK",
-          "link": 39
-        },
-        {
-          "name": "横坐标",
-          "label": "横坐标",
-          "localized_name": "横坐标",
-          "type": "INT",
-          "link": 28
-        },
-        {
-          "name": "纵坐标",
-          "label": "纵坐标",
-          "localized_name": "纵坐标",
-          "type": "INT",
-          "link": 29
-        },
-        {
-          "name": "宽度",
-          "label": "宽度",
-          "localized_name": "宽度",
-          "type": "INT",
-          "link": 30
-        },
-        {
-          "name": "高度",
-          "label": "高度",
-          "localized_name": "高度",
-          "type": "INT",
-          "link": 31
-        },
-        {
-          "name": "全图内向羽化遮罩",
-          "label": "全图内向羽化遮罩",
-          "localized_name": "全图内向羽化遮罩",
-          "type": "MASK",
-          "link": 40
-        },
-        {
-          "name": "唯一归属遮罩",
-          "label": "唯一归属遮罩",
-          "localized_name": "唯一归属遮罩",
-          "type": "MASK",
-          "link": 41
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "最终图像",
-          "label": "最终图像",
-          "localized_name": "最终图像",
+          "label": "images",
+          "localized_name": "images",
+          "name": "images",
           "type": "IMAGE",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "Universal_Local_Object_Edit/result_human_confirmed"
+      ]
+    },
+    {
+      "id": 203,
+      "type": "19c70604-835a-4420-b613-dfd854878020",
+      "pos": [
+        -42.33465309626742,
+        327.7076248074281
+      ],
+      "size": [
+        500,
+        300
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "目标自动遮罩",
+          "name": "目标自动遮罩",
+          "type": "MASK",
+          "link": 4
+        },
+        {
+          "label": "目标手工遮罩",
+          "name": "目标手工遮罩",
+          "type": "MASK",
+          "link": 5
+        },
+        {
+          "label": "保护自动遮罩",
+          "name": "保护自动遮罩",
+          "type": "MASK",
+          "link": 6
+        },
+        {
+          "label": "保护手工遮罩",
+          "name": "保护手工遮罩",
+          "type": "MASK",
+          "link": 7
+        },
+        {
+          "label": "启用保护",
+          "name": "启用保护",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "启用保护"
+          },
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "label": "实际目标遮罩",
+          "localized_name": "实际目标遮罩",
+          "name": "实际目标遮罩",
+          "type": "MASK",
           "links": [
-            33
+            10,
+            13
+          ]
+        },
+        {
+          "label": "实际保护遮罩",
+          "localized_name": "实际保护遮罩",
+          "name": "实际保护遮罩",
+          "type": "MASK",
+          "links": [
+            11,
+            14
           ]
         }
       ],
-      "title": "⑧ FLUX.2 Klein 局部生成与严格合回",
+      "title": "⑤ 自动选择遮罩（手工修正会自动覆盖）",
       "properties": {
         "proxyWidgets": [
           [
-            "17",
-            "edit_instruction"
-          ],
-          [
-            "33",
-            "width"
-          ],
-          [
-            "33",
-            "height"
-          ],
-          [
-            "27",
-            "grow"
-          ],
-          [
-            "27",
-            "blur"
+            "51",
+            "switch"
           ]
         ],
         "cnr_id": "comfy-core",
         "ver": "0.28.0"
       },
       "widgets_values": []
+    },
+    {
+      "id": 352,
+      "type": "PreviewBridge",
+      "pos": [
+        -744.0806319882658,
+        -453.7652430214413
+      ],
+      "size": [
+        650,
+        480
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "图像",
+          "localized_name": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2
+        },
+        {
+          "label": "遮罩编辑器内部状态",
+          "localized_name": "图像",
+          "name": "image",
+          "type": "STRING",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "label": "没有遮罩时暂停后续流程",
+          "localized_name": "block",
+          "name": "block",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "block"
+          },
+          "link": null
+        },
+        {
+          "label": "新图片不沿用旧遮罩",
+          "localized_name": "restore_mask",
+          "name": "restore_mask",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "restore_mask"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "图像",
+          "localized_name": "图像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": null
+        },
+        {
+          "label": "遮罩",
+          "localized_name": "遮罩",
+          "name": "MASK",
+          "type": "MASK",
+          "slot_index": 1,
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Impact-Pack",
+        "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
+        "Node name for S&R": "PreviewBridge"
+      },
+      "widgets_values": [
+        "$352-0",
+        false,
+        "never",
+        null
+      ]
     },
     {
       "id": 50,
@@ -650,18 +648,21 @@
       "inputs": [
         {
           "label": "on_false",
+          "localized_name": "为假时",
           "name": "on_false",
           "type": "IMAGE",
           "link": 32
         },
         {
           "label": "on_true",
+          "localized_name": "为真时",
           "name": "on_true",
           "type": "IMAGE",
           "link": 33
         },
         {
           "label": "switch",
+          "localized_name": "切换",
           "name": "switch",
           "type": "BOOLEAN",
           "widget": {
@@ -673,6 +674,7 @@
       "outputs": [
         {
           "label": "output",
+          "localized_name": "输出",
           "name": "output",
           "type": "IMAGE",
           "slot_index": 0,
@@ -693,55 +695,6 @@
       ]
     },
     {
-      "id": 41,
-      "type": "SaveImage",
-      "pos": [
-        1120.5079293285494,
-        236.5673207296967
-      ],
-      "size": [
-        488.12583360273516,
-        399.3350488693252
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "图像",
-          "name": "images",
-          "type": "IMAGE",
-          "link": 35
-        },
-        {
-          "label": "保存文件夹与文件名前缀",
-          "name": "filename_prefix",
-          "type": "STRING",
-          "widget": {
-            "name": "filename_prefix"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "images",
-          "name": "images",
-          "type": "IMAGE",
-          "slot_index": 0,
-          "links": null
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.28.0",
-        "Node name for S&R": "SaveImage"
-      },
-      "widgets_values": [
-        "Universal_Local_Object_Edit/result_human_confirmed"
-      ]
-    },
-    {
       "id": 42,
       "type": "PreviewImage",
       "pos": [
@@ -758,6 +711,7 @@
       "inputs": [
         {
           "label": "图像",
+          "localized_name": "图像",
           "name": "images",
           "type": "IMAGE",
           "link": 36
@@ -766,6 +720,7 @@
       "outputs": [
         {
           "label": "images",
+          "localized_name": "images",
           "name": "images",
           "type": "IMAGE",
           "slot_index": 0,
@@ -780,65 +735,28 @@
       "widgets_values": []
     },
     {
-      "id": 1,
-      "type": "LoadImage",
+      "id": 300,
+      "type": "MarkdownNote",
       "pos": [
-        -1764.4484056486992,
-        -458.5289935440659
+        -1765.4116150547866,
+        -946.8826215107209
       ],
       "size": [
-        430,
-        360
+        4150,
+        400
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
-      "inputs": [
-        {
-          "label": "选择或上传原图",
-          "name": "image",
-          "type": "COMBO",
-          "widget": {
-            "name": "image"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "图像",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "slot_index": 0,
-          "links": [
-            1,
-            9,
-            12,
-            25
-          ]
-        },
-        {
-          "label": "遮罩",
-          "name": "MASK",
-          "type": "MASK",
-          "slot_index": 1,
-          "links": null
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.28.0",
-        "Node name for S&R": "LoadImage",
-        "#sdppp_variant": "default",
-        "#sdppp_simple_content": "canvas",
-        "#sdppp_simple_mask": "canvas",
-        "#sdppp_simple_boundary": "canvas",
-        "#sdppp_label": ""
-      },
+      "inputs": [],
+      "outputs": [],
+      "title": "自动遮罩直接可用；编辑器只在需要修正时打开",
+      "properties": {},
       "widgets_values": [
-        "",
-        "image"
-      ]
+        "## 使用顺序\n1. 在①上传原图，在②填写处理对象和保护对象；中文会自动转换为SAM3使用的英文。\n2. 在控制区选择分块、外扩和羽化，并在最下方填写编辑 Prompt。首次运行时保持“最终生成＝关”。\n3. 检查⑥遮罩和⑦分块范围；只有识别不准时才使用③或④修正遮罩。\n4. 如需放弃失败的手工遮罩，在集中控制区切换对应的“重置编辑遮罩”或“重置保护遮罩”，再运行一次；两边互不影响。\n5. 确认白色生成范围正确后，开启“最终生成”并再次运行。结果会在⑩预览并保存。\n\n> FLUX.2 Klein 9B 为4步蒸馏模型，采样步数固定为4。"
+      ],
+      "color": "#18334a",
+      "bgcolor": "#244d6b"
     },
     {
       "id": 200,
@@ -901,6 +819,7 @@
       "outputs": [
         {
           "label": "目标编辑底图",
+          "localized_name": "目标编辑底图",
           "name": "目标编辑底图",
           "type": "IMAGE",
           "links": [
@@ -909,6 +828,7 @@
         },
         {
           "label": "目标自动遮罩",
+          "localized_name": "目标自动遮罩",
           "name": "目标自动遮罩",
           "type": "MASK",
           "links": [
@@ -917,6 +837,7 @@
         },
         {
           "label": "保护编辑底图",
+          "localized_name": "保护编辑底图",
           "name": "保护编辑底图",
           "type": "IMAGE",
           "links": [
@@ -925,6 +846,7 @@
         },
         {
           "label": "保护自动遮罩",
+          "localized_name": "保护自动遮罩",
           "name": "保护自动遮罩",
           "type": "MASK",
           "links": [
@@ -958,110 +880,103 @@
       "widgets_values": []
     },
     {
-      "id": 203,
-      "type": "19c70604-835a-4420-b613-dfd854878020",
+      "id": 1,
+      "type": "LoadImage",
       "pos": [
-        -42.33465309626742,
-        327.7076248074281
+        -1764.4484056486992,
+        -458.5289935440659
       ],
       "size": [
-        500,
-        300
+        430,
+        360
       ],
       "flags": {},
-      "order": 7,
+      "order": 2,
       "mode": 0,
       "inputs": [
         {
-          "label": "目标自动遮罩",
-          "name": "目标自动遮罩",
-          "type": "MASK",
-          "link": 4
-        },
-        {
-          "label": "目标手工遮罩",
-          "name": "目标手工遮罩",
-          "type": "MASK",
-          "link": 5
-        },
-        {
-          "label": "保护自动遮罩",
-          "name": "保护自动遮罩",
-          "type": "MASK",
-          "link": 6
-        },
-        {
-          "label": "保护手工遮罩",
-          "name": "保护手工遮罩",
-          "type": "MASK",
-          "link": 7
-        },
-        {
-          "label": "启用保护",
-          "name": "启用保护",
-          "type": "BOOLEAN",
+          "label": "选择或上传原图",
+          "localized_name": "图像",
+          "name": "image",
+          "type": "COMBO",
           "widget": {
-            "name": "启用保护"
+            "name": "image"
           },
-          "link": 8
+          "link": null
+        },
+        {
+          "localized_name": "选择文件上传",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "label": "实际目标遮罩",
-          "name": "实际目标遮罩",
-          "type": "MASK",
+          "label": "图像",
+          "localized_name": "图像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
           "links": [
-            10,
-            13
+            1,
+            9,
+            12,
+            25
           ]
         },
         {
-          "label": "实际保护遮罩",
-          "name": "实际保护遮罩",
+          "label": "遮罩",
+          "localized_name": "遮罩",
+          "name": "MASK",
           "type": "MASK",
-          "links": [
-            11,
-            14
-          ]
+          "slot_index": 1,
+          "links": null
         }
       ],
-      "title": "⑤ 自动选择遮罩（手工修正会自动覆盖）",
       "properties": {
-        "proxyWidgets": [
-          [
-            "51",
-            "switch"
-          ]
-        ],
         "cnr_id": "comfy-core",
-        "ver": "0.28.0"
+        "ver": "0.28.0",
+        "Node name for S&R": "LoadImage",
+        "#sdppp_variant": "default",
+        "#sdppp_simple_content": "canvas",
+        "#sdppp_simple_mask": "canvas",
+        "#sdppp_simple_boundary": "canvas",
+        "#sdppp_label": ""
       },
-      "widgets_values": []
+      "widgets_values": [
+        "DSC03399.jpg",
+        "image"
+      ]
     },
     {
-      "id": 352,
+      "id": 353,
       "type": "PreviewBridge",
       "pos": [
-        -744.0806319882658,
-        -453.7652430214413
+        -745.4840886324862,
+        148.3029526489661
       ],
       "size": [
         650,
         480
       ],
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
           "label": "图像",
+          "localized_name": "images",
           "name": "images",
           "type": "IMAGE",
-          "link": 2
+          "link": 3
         },
         {
           "label": "遮罩编辑器内部状态",
+          "localized_name": "图像",
           "name": "image",
           "type": "STRING",
           "widget": {
@@ -1071,6 +986,7 @@
         },
         {
           "label": "没有遮罩时暂停后续流程",
+          "localized_name": "block",
           "name": "block",
           "shape": 7,
           "type": "BOOLEAN",
@@ -1081,6 +997,7 @@
         },
         {
           "label": "新图片不沿用旧遮罩",
+          "localized_name": "restore_mask",
           "name": "restore_mask",
           "shape": 7,
           "type": "COMBO",
@@ -1093,6 +1010,7 @@
       "outputs": [
         {
           "label": "图像",
+          "localized_name": "图像",
           "name": "IMAGE",
           "type": "IMAGE",
           "slot_index": 0,
@@ -1100,22 +1018,22 @@
         },
         {
           "label": "遮罩",
+          "localized_name": "遮罩",
           "name": "MASK",
           "type": "MASK",
           "slot_index": 1,
           "links": [
-            5
+            7
           ]
         }
       ],
       "properties": {
         "cnr_id": "ComfyUI-Impact-Pack",
         "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
-        "Node name for S&R": "PreviewBridge",
-        "image": "clipspace/clipspace-painted-masked-1784302594921.png [input]"
+        "Node name for S&R": "PreviewBridge"
       },
       "widgets_values": [
-        "$352-0",
+        "$353-0",
         false,
         "never",
         null
@@ -1230,6 +1148,7 @@
       "outputs": [
         {
           "label": "启用保护",
+          "localized_name": "启用保护",
           "name": "启用保护",
           "type": "BOOLEAN",
           "links": [
@@ -1238,6 +1157,7 @@
         },
         {
           "label": "最终生成",
+          "localized_name": "最终生成",
           "name": "最终生成",
           "type": "BOOLEAN",
           "links": [
@@ -1246,6 +1166,7 @@
         },
         {
           "label": "最长边上限",
+          "localized_name": "最长边上限",
           "name": "最长边上限",
           "type": "INT",
           "links": [
@@ -1254,6 +1175,7 @@
         },
         {
           "label": "最短边上限",
+          "localized_name": "最短边上限",
           "name": "最短边上限",
           "type": "INT",
           "links": [
@@ -1262,6 +1184,7 @@
         },
         {
           "label": "总像素上限",
+          "localized_name": "总像素上限",
           "name": "总像素上限",
           "type": "INT",
           "links": [
@@ -1270,6 +1193,7 @@
         },
         {
           "label": "上下文范围",
+          "localized_name": "上下文范围",
           "name": "上下文范围",
           "type": "INT",
           "links": [
@@ -1278,6 +1202,7 @@
         },
         {
           "label": "默认外扩",
+          "localized_name": "默认外扩",
           "name": "默认外扩",
           "type": "INT",
           "links": [
@@ -1286,6 +1211,7 @@
         },
         {
           "label": "逐块外扩",
+          "localized_name": "逐块外扩",
           "name": "逐块外扩",
           "type": "STRING",
           "links": [
@@ -1294,6 +1220,7 @@
         },
         {
           "label": "默认羽化",
+          "localized_name": "默认羽化",
           "name": "默认羽化",
           "type": "INT",
           "links": [
@@ -1302,6 +1229,7 @@
         },
         {
           "label": "逐块羽化",
+          "localized_name": "逐块羽化",
           "name": "逐块羽化",
           "type": "STRING",
           "links": [
@@ -1310,6 +1238,7 @@
         },
         {
           "label": "编辑要求",
+          "localized_name": "编辑要求",
           "name": "编辑要求",
           "type": "STRING",
           "links": [
@@ -1318,6 +1247,7 @@
         },
         {
           "label": "重置目标遮罩",
+          "localized_name": "重置目标遮罩",
           "name": "重置目标遮罩",
           "type": "BOOLEAN",
           "links": [
@@ -1326,6 +1256,7 @@
         },
         {
           "label": "重置保护遮罩",
+          "localized_name": "重置保护遮罩",
           "name": "重置保护遮罩",
           "type": "BOOLEAN",
           "links": [
@@ -1375,6 +1306,125 @@
           [
             "182",
             "edit_instruction"
+          ]
+        ],
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 201,
+      "type": "356e1beb-14f1-44ff-b7e4-74cc538d8d2c",
+      "pos": [
+        486.5149801289874,
+        115.4116150547863
+      ],
+      "size": [
+        590,
+        520
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "编辑要求",
+          "name": "编辑要求",
+          "type": "STRING",
+          "widget": {
+            "name": "编辑要求"
+          },
+          "link": 26
+        },
+        {
+          "label": "原图",
+          "name": "原图",
+          "type": "IMAGE",
+          "link": 25
+        },
+        {
+          "label": "局部块图像",
+          "name": "局部块图像",
+          "type": "IMAGE",
+          "link": 27
+        },
+        {
+          "label": "共享生成遮罩",
+          "name": "共享生成遮罩",
+          "type": "MASK",
+          "link": 39
+        },
+        {
+          "label": "横坐标",
+          "name": "横坐标",
+          "type": "INT",
+          "link": 28
+        },
+        {
+          "label": "纵坐标",
+          "name": "纵坐标",
+          "type": "INT",
+          "link": 29
+        },
+        {
+          "label": "宽度",
+          "name": "宽度",
+          "type": "INT",
+          "widget": {
+            "name": "宽度"
+          },
+          "link": 30
+        },
+        {
+          "label": "高度",
+          "name": "高度",
+          "type": "INT",
+          "widget": {
+            "name": "高度"
+          },
+          "link": 31
+        },
+        {
+          "label": "全图内向羽化遮罩",
+          "name": "全图内向羽化遮罩",
+          "shape": 7,
+          "type": "MASK",
+          "link": 40
+        },
+        {
+          "label": "唯一归属遮罩",
+          "name": "唯一归属遮罩",
+          "shape": 7,
+          "type": "MASK",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "label": "最终图像",
+          "localized_name": "最终图像",
+          "name": "最终图像",
+          "type": "IMAGE",
+          "links": [
+            33
+          ]
+        }
+      ],
+      "title": "⑧ FLUX.2 Klein 局部生成与严格合回",
+      "properties": {
+        "proxyWidgets": [
+          [
+            "18",
+            "text"
+          ],
+          [
+            "33",
+            "width"
+          ],
+          [
+            "33",
+            "height"
           ]
         ],
         "cnr_id": "comfy-core",
@@ -1734,7 +1784,7 @@
         "version": 1,
         "state": {
           "lastGroupId": 1,
-          "lastNodeId": 359,
+          "lastNodeId": 360,
           "lastLinkId": 55,
           "lastRerouteId": 0
         },
@@ -1783,7 +1833,7 @@
             "linkIds": [
               23
             ],
-            "label": "处理对象（支持中文）",
+            "label": "处理对象",
             "pos": [
               -880,
               -230
@@ -1796,7 +1846,7 @@
             "linkIds": [
               24
             ],
-            "label": "保护对象（支持中文）",
+            "label": "保护对象",
             "pos": [
               -880,
               -200
@@ -1809,7 +1859,7 @@
             "linkIds": [
               25
             ],
-            "label": "重置编辑遮罩（切换后运行一次）",
+            "label": "重置目标手工遮罩",
             "pos": [
               -880,
               -170
@@ -1822,7 +1872,7 @@
             "linkIds": [
               26
             ],
-            "label": "重置保护遮罩（切换后运行一次）",
+            "label": "重置保护手工遮罩",
             "pos": [
               -880,
               -140
@@ -2006,7 +2056,9 @@
               "ver": "0.28.0",
               "Node name for S&R": "CLIPTextEncode"
             },
-            "widgets_values": ""
+            "widgets_values": [
+              "black cable"
+            ]
           },
           {
             "id": 7,
@@ -2233,7 +2285,9 @@
               "ver": "0.28.0",
               "Node name for S&R": "CLIPTextEncode"
             },
-            "widgets_values": ""
+            "widgets_values": [
+              "person"
+            ]
           },
           {
             "id": 161,
@@ -2412,7 +2466,7 @@
           },
           {
             "id": 183,
-            "type": "UniversalSAMPromptAutoEnglish",
+            "type": "RegionEditRequiredOfflineEnglish",
             "pos": [
               -650,
               -300
@@ -2450,14 +2504,15 @@
             ],
             "title": "内部：处理对象离线中译英（英文直通）",
             "properties": {
-              "Node name for S&R": "UniversalSAMPromptAutoEnglish",
-              "cnr_id": "ComfyUI-MaskRegionTilePlanner"
+              "Node name for S&R": "RegionEditRequiredOfflineEnglish"
             },
-            "widgets_values": "电线"
+            "widgets_values": [
+              "气球"
+            ]
           },
           {
             "id": 184,
-            "type": "UniversalSAMPromptAutoEnglish",
+            "type": "RegionEditRequiredOfflineEnglish",
             "pos": [
               -650,
               170
@@ -2495,10 +2550,11 @@
             ],
             "title": "内部：保护对象离线中译英（英文直通）",
             "properties": {
-              "Node name for S&R": "UniversalSAMPromptAutoEnglish",
-              "cnr_id": "ComfyUI-MaskRegionTilePlanner"
+              "Node name for S&R": "RegionEditRequiredOfflineEnglish"
             },
-            "widgets_values": "人"
+            "widgets_values": [
+              "人"
+            ]
           },
           {
             "id": 185,
@@ -3097,7 +3153,7 @@
         "version": 1,
         "state": {
           "lastGroupId": 1,
-          "lastNodeId": 359,
+          "lastNodeId": 360,
           "lastLinkId": 55,
           "lastRerouteId": 0
         },
@@ -3130,7 +3186,7 @@
             "linkIds": [
               1
             ],
-            "label": "启用保护遮罩",
+            "label": "启用保护",
             "pos": [
               -880,
               -260
@@ -3143,7 +3199,7 @@
             "linkIds": [
               2
             ],
-            "label": "开始最终生成",
+            "label": "最终生成",
             "pos": [
               -880,
               -230
@@ -3169,7 +3225,7 @@
             "linkIds": [
               4
             ],
-            "label": "生成范围外扩档位",
+            "label": "默认外扩",
             "pos": [
               -880,
               -170
@@ -3182,7 +3238,7 @@
             "linkIds": [
               5
             ],
-            "label": "逐块外扩例外（例如 2=16,5=64；留空用默认）",
+            "label": "逐块外扩",
             "pos": [
               -880,
               -140
@@ -3195,7 +3251,7 @@
             "linkIds": [
               6
             ],
-            "label": "边缘羽化档位",
+            "label": "默认羽化",
             "pos": [
               -880,
               -110
@@ -3208,7 +3264,7 @@
             "linkIds": [
               7
             ],
-            "label": "逐块羽化例外（例如 2=4,5=16；留空用默认）",
+            "label": "逐块羽化",
             "pos": [
               -880,
               -80
@@ -3221,7 +3277,7 @@
             "linkIds": [
               8
             ],
-            "label": "重置编辑遮罩（每次需要重做时切换一次）",
+            "label": "重置目标遮罩",
             "pos": [
               -880,
               -50
@@ -3234,7 +3290,7 @@
             "linkIds": [
               9
             ],
-            "label": "重置保护遮罩（每次需要重做时切换一次）",
+            "label": "重置保护遮罩",
             "pos": [
               -880,
               -20
@@ -3247,7 +3303,7 @@
             "linkIds": [
               10
             ],
-            "label": "编辑 Prompt",
+            "label": "编辑要求",
             "pos": [
               -880,
               10
@@ -3484,7 +3540,9 @@
               "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
               "Node name for S&R": "ImpactBoolean"
             },
-            "widgets_values": true
+            "widgets_values": [
+              true
+            ]
           },
           {
             "id": 181,
@@ -3530,11 +3588,13 @@
               "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
               "Node name for S&R": "ImpactBoolean"
             },
-            "widgets_values": false
+            "widgets_values": [
+              false
+            ]
           },
           {
             "id": 182,
-            "type": "UniversalLocalEditTileControls",
+            "type": "RegionEditTileControlPreset",
             "pos": [
               -360,
               40
@@ -3702,15 +3762,14 @@
             ],
             "title": "编辑要求、分块、外扩与羽化集中设置",
             "properties": {
-              "Node name for S&R": "UniversalLocalEditTileControls",
-              "cnr_id": "ComfyUI-MaskRegionTilePlanner"
+              "Node name for S&R": "RegionEditTileControlPreset"
             },
             "widgets_values": [
-              "移除电缆线，保持环境不变。",
-              "标准",
-              "标准（32）",
+              "把手捧的气球换成火球，其他内容不变",
+              "大块（高显存）",
+              "大范围（128）",
               "",
-              "标准（8）",
+              "精细（4）",
               ""
             ]
           },
@@ -3758,7 +3817,9 @@
               "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
               "Node name for S&R": "ImpactBoolean"
             },
-            "widgets_values": false
+            "widgets_values": [
+              false
+            ]
           },
           {
             "id": 355,
@@ -3804,7 +3865,9 @@
               "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
               "Node name for S&R": "ImpactBoolean"
             },
-            "widgets_values": false
+            "widgets_values": [
+              false
+            ]
           }
         ],
         "groups": [],
@@ -4003,7 +4066,7 @@
         "version": 1,
         "state": {
           "lastGroupId": 1,
-          "lastNodeId": 359,
+          "lastNodeId": 360,
           "lastLinkId": 55,
           "lastRerouteId": 0
         },
@@ -4619,7 +4682,7 @@
         "version": 1,
         "state": {
           "lastGroupId": 1,
-          "lastNodeId": 359,
+          "lastNodeId": 360,
           "lastLinkId": 55,
           "lastRerouteId": 0
         },
@@ -5186,9 +5249,9 @@
         "id": "fea87041-8689-429d-866a-3aac84911ae5",
         "version": 1,
         "state": {
-          "lastGroupId": 0,
-          "lastNodeId": 188,
-          "lastLinkId": 26,
+          "lastGroupId": 1,
+          "lastNodeId": 360,
+          "lastLinkId": 55,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -5216,11 +5279,11 @@
           {
             "id": "0eae0ad7-49fb-44dc-9511-aae1aab7c7e6",
             "name": "原图",
-            "label": "原图",
             "type": "IMAGE",
             "linkIds": [
               3
             ],
+            "label": "原图",
             "pos": [
               -880,
               -260
@@ -5229,11 +5292,11 @@
           {
             "id": "89a672f0-54dd-42a6-a25f-8619da74306d",
             "name": "目标遮罩",
-            "label": "目标遮罩",
             "type": "MASK",
             "linkIds": [
               4
             ],
+            "label": "目标遮罩",
             "pos": [
               -880,
               -230
@@ -5242,11 +5305,11 @@
           {
             "id": "da5c94c5-b9b5-4c90-be0c-e20da76d2e9f",
             "name": "保护遮罩",
-            "label": "保护遮罩",
             "type": "MASK",
             "linkIds": [
               5
             ],
+            "label": "保护遮罩",
             "pos": [
               -880,
               -200
@@ -5255,11 +5318,11 @@
           {
             "id": "8f515734-0f80-4063-a32e-d3dafcac32e1",
             "name": "最长边上限",
-            "label": "最长边上限",
             "type": "INT",
             "linkIds": [
               6
             ],
+            "label": "最长边上限",
             "pos": [
               -880,
               -170
@@ -5268,11 +5331,11 @@
           {
             "id": "89da31e4-20af-432b-9089-3a3966e5395a",
             "name": "最短边上限",
-            "label": "最短边上限",
             "type": "INT",
             "linkIds": [
               7
             ],
+            "label": "最短边上限",
             "pos": [
               -880,
               -140
@@ -5281,11 +5344,11 @@
           {
             "id": "c1b06d79-194f-492d-a884-43b023840f16",
             "name": "总像素上限",
-            "label": "总像素上限",
             "type": "INT",
             "linkIds": [
               8
             ],
+            "label": "总像素上限",
             "pos": [
               -880,
               -110
@@ -5294,11 +5357,11 @@
           {
             "id": "b4dbf7c8-3129-4919-bc4e-3b964cf37fa0",
             "name": "上下文范围",
-            "label": "上下文范围",
             "type": "INT",
             "linkIds": [
               9
             ],
+            "label": "上下文范围",
             "pos": [
               -880,
               -80
@@ -5307,11 +5370,11 @@
           {
             "id": "f00cbbd7-274e-4458-bad9-7a29f434fc9c",
             "name": "默认外扩",
-            "label": "默认外扩",
             "type": "INT",
             "linkIds": [
               10
             ],
+            "label": "默认外扩",
             "pos": [
               -880,
               -50
@@ -5320,11 +5383,11 @@
           {
             "id": "14756a5b-32e8-40a8-97f9-c810d6ef223a",
             "name": "逐块外扩",
-            "label": "逐块外扩",
             "type": "STRING",
             "linkIds": [
               11
             ],
+            "label": "逐块外扩",
             "pos": [
               -880,
               -20
@@ -5333,11 +5396,11 @@
           {
             "id": "b5176fd7-3fba-4747-ad55-e86954bf0b05",
             "name": "默认羽化",
-            "label": "默认羽化",
             "type": "INT",
             "linkIds": [
               12
             ],
+            "label": "默认羽化",
             "pos": [
               -880,
               10
@@ -5346,11 +5409,11 @@
           {
             "id": "a00cf392-a644-4451-a5d5-ff3b11c815a6",
             "name": "逐块羽化",
-            "label": "逐块羽化",
             "type": "STRING",
             "linkIds": [
               13
             ],
+            "label": "逐块羽化",
             "pos": [
               -880,
               40
@@ -5361,12 +5424,12 @@
           {
             "id": "3e4b3c6c-5252-47c5-9ea2-c117cbb6d13e",
             "name": "局部块图像",
-            "label": "局部块图像",
-            "localized_name": "局部块图像",
             "type": "IMAGE",
             "linkIds": [
               14
             ],
+            "localized_name": "局部块图像",
+            "label": "局部块图像",
             "pos": [
               1270,
               -20
@@ -5375,12 +5438,12 @@
           {
             "id": "8fbd6fcb-fea5-4399-8b66-25df64bc03b3",
             "name": "唯一归属遮罩",
-            "label": "唯一归属遮罩",
-            "localized_name": "唯一归属遮罩",
             "type": "MASK",
             "linkIds": [
               15
             ],
+            "localized_name": "唯一归属遮罩",
+            "label": "唯一归属遮罩",
             "pos": [
               1270,
               10
@@ -5389,12 +5452,12 @@
           {
             "id": "2057f379-713e-41ae-b307-50c701963b92",
             "name": "保护区局部遮罩",
-            "label": "保护区局部遮罩",
-            "localized_name": "保护区局部遮罩",
             "type": "MASK",
             "linkIds": [
               16
             ],
+            "localized_name": "保护区局部遮罩",
+            "label": "保护区局部遮罩",
             "pos": [
               1270,
               40
@@ -5403,12 +5466,12 @@
           {
             "id": "1c52dc17-017a-49ae-a0ba-8ba8bad43df5",
             "name": "横坐标",
-            "label": "横坐标",
-            "localized_name": "横坐标",
             "type": "INT",
             "linkIds": [
               17
             ],
+            "localized_name": "横坐标",
+            "label": "横坐标",
             "pos": [
               1270,
               70
@@ -5417,12 +5480,12 @@
           {
             "id": "ec645d3b-c78e-4f25-96f7-20099dc10a20",
             "name": "纵坐标",
-            "label": "纵坐标",
-            "localized_name": "纵坐标",
             "type": "INT",
             "linkIds": [
               18
             ],
+            "localized_name": "纵坐标",
+            "label": "纵坐标",
             "pos": [
               1270,
               100
@@ -5431,12 +5494,12 @@
           {
             "id": "f75a3521-55c7-4292-994b-b00150c8d1ec",
             "name": "宽度",
-            "label": "宽度",
-            "localized_name": "宽度",
             "type": "INT",
             "linkIds": [
               19
             ],
+            "localized_name": "宽度",
+            "label": "宽度",
             "pos": [
               1270,
               130
@@ -5445,12 +5508,12 @@
           {
             "id": "2e4582f3-65e8-4cfe-9589-ff2b3576450e",
             "name": "高度",
-            "label": "高度",
-            "localized_name": "高度",
             "type": "INT",
             "linkIds": [
               20
             ],
+            "localized_name": "高度",
+            "label": "高度",
             "pos": [
               1270,
               160
@@ -5459,12 +5522,12 @@
           {
             "id": "25159ebb-4d18-4ed6-882d-e211a9d9badd",
             "name": "外扩",
-            "label": "外扩",
-            "localized_name": "外扩",
             "type": "INT",
             "linkIds": [
               21
             ],
+            "localized_name": "外扩",
+            "label": "外扩",
             "pos": [
               1270,
               190
@@ -5473,12 +5536,12 @@
           {
             "id": "59f008bb-20f7-41b8-a6a6-a1ee9a5258ff",
             "name": "羽化",
-            "label": "羽化",
-            "localized_name": "羽化",
             "type": "INT",
             "linkIds": [
               22
             ],
+            "localized_name": "羽化",
+            "label": "羽化",
             "pos": [
               1270,
               220
@@ -5487,12 +5550,12 @@
           {
             "id": "0f32a4d1-5a7e-43f1-9e00-e69b795d8a2d",
             "name": "带编号分块预览",
-            "label": "带编号分块预览",
-            "localized_name": "带编号分块预览",
             "type": "IMAGE",
             "linkIds": [
               23
             ],
+            "localized_name": "带编号分块预览",
+            "label": "带编号分块预览",
             "pos": [
               1270,
               250
@@ -5501,12 +5564,12 @@
           {
             "id": "d14d27f0-5bbb-48df-868e-c94a037beea4",
             "name": "实际生成范围预览",
-            "label": "实际生成范围预览",
-            "localized_name": "实际生成范围预览",
             "type": "IMAGE",
             "linkIds": [
               24
             ],
+            "localized_name": "实际生成范围预览",
+            "label": "实际生成范围预览",
             "pos": [
               1270,
               280
@@ -5515,12 +5578,12 @@
           {
             "id": "942cf9e0-8c8d-49f5-8bcd-30bc70b9950b",
             "name": "共享生成遮罩",
-            "label": "共享生成遮罩",
-            "localized_name": "共享生成遮罩",
             "type": "MASK",
             "linkIds": [
               25
             ],
+            "localized_name": "共享生成遮罩",
+            "label": "共享生成遮罩",
             "pos": [
               1270,
               310
@@ -5529,12 +5592,12 @@
           {
             "id": "0f7f017e-8c9f-416d-ab53-4bb9a4d7381d",
             "name": "全图内向羽化遮罩",
-            "label": "全图内向羽化遮罩",
-            "localized_name": "全图内向羽化遮罩",
             "type": "MASK",
             "linkIds": [
               26
             ],
+            "localized_name": "全图内向羽化遮罩",
+            "label": "全图内向羽化遮罩",
             "pos": [
               1270,
               340
@@ -5545,7 +5608,7 @@
         "nodes": [
           {
             "id": 12,
-            "type": "MaskRegionTilePlannerExact",
+            "type": "RegionEditTilePlanner",
             "pos": [
               -700,
               -160
@@ -5559,16 +5622,16 @@
             "mode": 0,
             "inputs": [
               {
-                "name": "mask",
                 "label": "mask",
                 "localized_name": "mask",
+                "name": "mask",
                 "type": "MASK",
                 "link": 4
               },
               {
+                "label": "max_long_side",
+                "localized_name": "max_long_side",
                 "name": "max_long_side",
-                "label": "区块最长边上限",
-                "localized_name": "区块最长边上限",
                 "type": "INT",
                 "widget": {
                   "name": "max_long_side"
@@ -5576,9 +5639,9 @@
                 "link": 6
               },
               {
+                "label": "max_short_side",
+                "localized_name": "max_short_side",
                 "name": "max_short_side",
-                "label": "区块最短边上限",
-                "localized_name": "区块最短边上限",
                 "type": "INT",
                 "widget": {
                   "name": "max_short_side"
@@ -5586,9 +5649,9 @@
                 "link": 7
               },
               {
+                "label": "max_pixels",
+                "localized_name": "max_pixels",
                 "name": "max_pixels",
-                "label": "区块总像素上限",
-                "localized_name": "区块总像素上限",
                 "type": "INT",
                 "widget": {
                   "name": "max_pixels"
@@ -5596,9 +5659,9 @@
                 "link": 8
               },
               {
+                "label": "context_pixels",
+                "localized_name": "context_pixels",
                 "name": "context_pixels",
-                "label": "目标周围保留范围",
-                "localized_name": "目标周围保留范围",
                 "type": "INT",
                 "widget": {
                   "name": "context_pixels"
@@ -5606,9 +5669,9 @@
                 "link": 9
               },
               {
-                "name": "multiple",
                 "label": "multiple",
                 "localized_name": "multiple",
+                "name": "multiple",
                 "type": "INT",
                 "widget": {
                   "name": "multiple"
@@ -5616,9 +5679,9 @@
                 "link": null
               },
               {
-                "name": "support_threshold",
                 "label": "support_threshold",
                 "localized_name": "support_threshold",
+                "name": "support_threshold",
                 "type": "FLOAT",
                 "widget": {
                   "name": "support_threshold"
@@ -5626,9 +5689,9 @@
                 "link": null
               },
               {
-                "name": "min_component_pixels",
                 "label": "min_component_pixels",
                 "localized_name": "min_component_pixels",
+                "name": "min_component_pixels",
                 "type": "INT",
                 "widget": {
                   "name": "min_component_pixels"
@@ -5636,9 +5699,9 @@
                 "link": null
               },
               {
-                "name": "min_target_extent",
                 "label": "min_target_extent",
                 "localized_name": "min_target_extent",
+                "name": "min_target_extent",
                 "type": "INT",
                 "widget": {
                   "name": "min_target_extent"
@@ -5648,9 +5711,9 @@
             ],
             "outputs": [
               {
-                "name": "plan",
                 "label": "plan",
                 "localized_name": "plan",
+                "name": "plan",
                 "type": "REGION_TILE_PLAN",
                 "slot_index": 0,
                 "links": [
@@ -5658,33 +5721,33 @@
                 ]
               },
               {
-                "name": "tile_count",
                 "label": "tile_count",
                 "localized_name": "tile_count",
+                "name": "tile_count",
                 "type": "INT",
                 "slot_index": 1,
                 "links": null
               },
               {
-                "name": "ownership_union",
                 "label": "ownership_union",
                 "localized_name": "ownership_union",
+                "name": "ownership_union",
                 "type": "MASK",
                 "slot_index": 2,
                 "links": null
               },
               {
-                "name": "report_json",
                 "label": "report_json",
                 "localized_name": "report_json",
+                "name": "report_json",
                 "type": "STRING",
                 "slot_index": 3,
                 "links": null
               }
             ],
+            "title": "【三、自动分块】按遮罩规划原生分辨率区块",
             "properties": {
-              "cnr_id": "ComfyUI-MaskRegionTilePlanner",
-              "Node name for S&R": "MaskRegionTilePlannerExact"
+              "Node name for S&R": "RegionEditTilePlanner"
             },
             "widgets_values": [
               1536,
@@ -5695,218 +5758,217 @@
               0.001,
               16,
               256
-            ],
-            "title": "【三、自动分块】按遮罩规划原生分辨率区块"
+            ]
           },
           {
             "id": 13,
-            "type": "UniversalRegionTileBatchControlledExact",
+            "type": "RegionEditTileBatchPrepare",
             "pos": [
               -160,
               -160
             ],
             "size": [
               390,
-              191
+              286
             ],
             "flags": {},
             "order": 1,
             "mode": 0,
             "inputs": [
               {
-                "name": "image",
                 "label": "image",
                 "localized_name": "image",
+                "name": "image",
                 "type": "IMAGE",
                 "link": 3
               },
               {
-                "name": "plan",
                 "label": "plan",
                 "localized_name": "plan",
+                "name": "plan",
                 "type": "REGION_TILE_PLAN",
                 "link": 1
               },
               {
-                "name": "protection_mask",
                 "label": "protection_mask",
                 "localized_name": "protection_mask",
+                "name": "protection_mask",
                 "type": "MASK",
                 "link": 5
               },
               {
+                "label": "default_grow",
+                "localized_name": "default_grow",
                 "name": "default_grow",
-                "label": "默认外扩",
-                "localized_name": "默认外扩",
                 "type": "INT",
                 "link": 10
               },
               {
+                "label": "tile_grow_overrides",
+                "localized_name": "tile_grow_overrides",
                 "name": "tile_grow_overrides",
-                "label": "逐块外扩例外",
-                "localized_name": "逐块外扩例外",
                 "type": "STRING",
                 "link": 11
               },
               {
+                "label": "default_blur",
+                "localized_name": "default_blur",
                 "name": "default_blur",
-                "label": "默认羽化",
-                "localized_name": "默认羽化",
                 "type": "INT",
                 "link": 12
               },
               {
+                "label": "tile_blur_overrides",
+                "localized_name": "tile_blur_overrides",
                 "name": "tile_blur_overrides",
-                "label": "逐块羽化例外",
-                "localized_name": "逐块羽化例外",
                 "type": "STRING",
                 "link": 13
               }
             ],
             "outputs": [
               {
-                "name": "tile_images",
                 "label": "tile_images",
                 "localized_name": "tile_images",
+                "name": "tile_images",
+                "shape": 6,
                 "type": "IMAGE",
                 "slot_index": 0,
                 "links": [
                   14
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "ownership_masks",
                 "label": "ownership_masks",
                 "localized_name": "ownership_masks",
+                "name": "ownership_masks",
+                "shape": 6,
                 "type": "MASK",
                 "slot_index": 1,
                 "links": [
                   15
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "protection_crops",
                 "label": "protection_crops",
                 "localized_name": "protection_crops",
+                "name": "protection_crops",
+                "shape": 6,
                 "type": "MASK",
                 "slot_index": 2,
                 "links": [
                   16
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "x",
                 "label": "x",
                 "localized_name": "x",
+                "name": "x",
+                "shape": 6,
                 "type": "INT",
                 "slot_index": 3,
                 "links": [
                   17
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "y",
                 "label": "y",
                 "localized_name": "y",
+                "name": "y",
+                "shape": 6,
                 "type": "INT",
                 "slot_index": 4,
                 "links": [
                   18
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "width",
                 "label": "width",
                 "localized_name": "width",
+                "name": "width",
+                "shape": 6,
                 "type": "INT",
                 "slot_index": 5,
                 "links": [
                   19
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "height",
                 "label": "height",
                 "localized_name": "height",
+                "name": "height",
+                "shape": 6,
                 "type": "INT",
                 "slot_index": 6,
                 "links": [
                   20
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "grow",
                 "label": "grow",
                 "localized_name": "grow",
+                "name": "grow",
+                "shape": 6,
                 "type": "INT",
                 "slot_index": 7,
                 "links": [
                   21
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "blur",
                 "label": "blur",
                 "localized_name": "blur",
+                "name": "blur",
+                "shape": 6,
                 "type": "INT",
                 "slot_index": 8,
                 "links": [
                   22
-                ],
-                "shape": 6
+                ]
               },
               {
-                "name": "tile_index",
                 "label": "tile_index",
                 "localized_name": "tile_index",
+                "name": "tile_index",
+                "shape": 6,
                 "type": "INT",
                 "slot_index": 9,
-                "links": null,
-                "shape": 6
+                "links": null
               },
               {
-                "name": "report_json",
                 "label": "report_json",
                 "localized_name": "report_json",
+                "name": "report_json",
                 "type": "STRING",
                 "slot_index": 10,
                 "links": null
               },
               {
+                "label": "labeled_preview_images",
+                "localized_name": "labeled_preview_images",
                 "name": "labeled_preview_images",
-                "label": "带编号分块预览",
-                "localized_name": "带编号分块预览",
+                "shape": 6,
                 "type": "IMAGE",
                 "slot_index": 11,
                 "links": [
                   23
-                ],
-                "shape": 6
+                ]
               },
               {
+                "label": "shared_generation_masks",
+                "localized_name": "shared_generation_masks",
                 "name": "shared_generation_masks",
-                "label": "共享生成遮罩",
-                "localized_name": "共享生成遮罩",
+                "shape": 6,
                 "type": "MASK",
                 "slot_index": 12,
                 "links": [
                   2,
                   25
-                ],
-                "shape": 6
+                ]
               },
               {
+                "label": "global_inward_alpha",
+                "localized_name": "global_inward_alpha",
                 "name": "global_inward_alpha",
-                "label": "全图内向羽化遮罩",
-                "localized_name": "全图内向羽化遮罩",
                 "type": "MASK",
                 "slot_index": 13,
                 "links": [
@@ -5914,15 +5976,14 @@
                 ]
               }
             ],
+            "title": "内部：按集中控制裁出区块并分别设置外扩与羽化",
             "properties": {
-              "cnr_id": "ComfyUI-MaskRegionTilePlanner",
-              "Node name for S&R": "UniversalRegionTileBatchControlledExact"
+              "Node name for S&R": "RegionEditTileBatchPrepare"
             },
-            "widgets_values": [],
-            "title": "内部：按集中控制裁出区块并分别设置外扩与羽化"
+            "widgets_values": []
           },
           {
-            "id": 188,
+            "id": 360,
             "type": "MaskToImage",
             "pos": [
               520,
@@ -5937,18 +5998,18 @@
             "mode": 0,
             "inputs": [
               {
+                "label": "遮罩",
+                "localized_name": "遮罩",
                 "name": "mask",
-                "label": "mask",
-                "localized_name": "mask",
                 "type": "MASK",
                 "link": 2
               }
             ],
             "outputs": [
               {
+                "label": "图像",
+                "localized_name": "图像",
                 "name": "IMAGE",
-                "label": "IMAGE",
-                "localized_name": "IMAGE",
                 "type": "IMAGE",
                 "slot_index": 0,
                 "links": [
@@ -5958,10 +6019,10 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "MaskToImage"
             },
-            "widgets_values": [],
-            "title": "内部：共享生成遮罩转黑白预览"
+            "widgets_values": []
           }
         ],
         "groups": [],
@@ -5978,7 +6039,7 @@
             "id": 2,
             "origin_id": 13,
             "origin_slot": 12,
-            "target_id": 188,
+            "target_id": 360,
             "target_slot": 0,
             "type": "MASK"
           },
@@ -6152,7 +6213,7 @@
           },
           {
             "id": 24,
-            "origin_id": 188,
+            "origin_id": 360,
             "origin_slot": 0,
             "target_id": -20,
             "target_slot": 10,
@@ -6183,9 +6244,9 @@
         "id": "356e1beb-14f1-44ff-b7e4-74cc538d8d2c",
         "version": 1,
         "state": {
-          "lastGroupId": 0,
-          "lastNodeId": 40,
-          "lastLinkId": 42,
+          "lastGroupId": 1,
+          "lastNodeId": 360,
+          "lastLinkId": 55,
           "lastRerouteId": 0
         },
         "revision": 0,
@@ -6196,8 +6257,8 @@
           "bounding": [
             -1020,
             -300,
-            140,
-            310
+            144,
+            248
           ]
         },
         "outputNode": {
@@ -6205,145 +6266,145 @@
           "bounding": [
             1250,
             -40,
-            130,
-            70
+            128,
+            68
           ]
         },
         "inputs": [
           {
             "id": "101bc93b-0aad-48ac-b13c-0b12ec0c16a2",
             "name": "编辑要求",
-            "label": "编辑要求",
             "type": "STRING",
             "linkIds": [
               27
             ],
+            "label": "编辑要求",
             "pos": [
-              -880,
-              -260
+              -900,
+              -276
             ]
           },
           {
             "id": "3db068de-9b13-477f-bfb6-31cd8480d9f8",
             "name": "原图",
-            "label": "原图",
             "type": "IMAGE",
             "linkIds": [
               28,
               29
             ],
+            "label": "原图",
             "pos": [
-              -880,
-              -230
+              -900,
+              -256
             ]
           },
           {
             "id": "7ea07a34-5a48-45c6-ab36-b024badc42bf",
             "name": "局部块图像",
-            "label": "局部块图像",
             "type": "IMAGE",
             "linkIds": [
               30,
               31
             ],
+            "label": "局部块图像",
             "pos": [
-              -880,
-              -200
+              -900,
+              -236
             ]
           },
           {
             "id": "244c87f9-c0d6-480d-b1d0-062c341c797e",
             "name": "共享生成遮罩",
-            "label": "共享生成遮罩",
             "type": "MASK",
             "linkIds": [
               32,
               33,
               34
             ],
+            "label": "共享生成遮罩",
             "pos": [
-              -880,
-              -170
+              -900,
+              -216
             ]
           },
           {
             "id": "2d339176-5421-4836-a887-af17fd0946d9",
             "name": "横坐标",
-            "label": "横坐标",
             "type": "INT",
             "linkIds": [
               35
             ],
+            "label": "横坐标",
             "pos": [
-              -880,
-              -140
+              -900,
+              -196
             ]
           },
           {
             "id": "a6e22e63-d672-43f2-94d7-f99247980961",
             "name": "纵坐标",
-            "label": "纵坐标",
             "type": "INT",
             "linkIds": [
               36
             ],
+            "label": "纵坐标",
             "pos": [
-              -880,
-              -110
+              -900,
+              -176
             ]
           },
           {
             "id": "2c35ac56-65b9-44fa-b524-8b6724a6d02f",
             "name": "宽度",
-            "label": "宽度",
             "type": "INT",
             "linkIds": [
               37,
               38
             ],
+            "label": "宽度",
             "pos": [
-              -880,
-              -80
+              -900,
+              -156
             ]
           },
           {
             "id": "eb663174-464f-418a-a860-b14067b90ae7",
             "name": "高度",
-            "label": "高度",
             "type": "INT",
             "linkIds": [
               39,
               40
             ],
+            "label": "高度",
             "pos": [
-              -880,
-              -50
+              -900,
+              -136
             ]
           },
           {
             "id": "750130d7-1267-433f-8760-50601287abf5",
             "name": "全图内向羽化遮罩",
-            "label": "全图内向羽化遮罩",
             "type": "MASK",
             "linkIds": [
               41
             ],
+            "label": "全图内向羽化遮罩",
             "pos": [
-              -880,
-              -20
+              -900,
+              -116
             ]
           },
           {
             "id": "e72653e5-2a9b-5748-be2a-dd5c5acf96c4",
             "name": "唯一归属遮罩",
-            "label": "唯一归属遮罩",
             "type": "MASK",
             "linkIds": [
               43
             ],
+            "label": "唯一归属遮罩",
             "pos": [
-              -880,
-              10
+              -900,
+              -96
             ]
           }
         ],
@@ -6351,78 +6412,20 @@
           {
             "id": "cc31f9c9-170c-4bfa-8d1d-295661f91984",
             "name": "最终图像",
-            "label": "最终图像",
-            "localized_name": "最终图像",
             "type": "IMAGE",
             "linkIds": [
               42
             ],
+            "localized_name": "最终图像",
+            "label": "最终图像",
             "pos": [
-              1270,
-              -20
+              1274,
+              -16
             ]
           }
         ],
         "widgets": [],
         "nodes": [
-          {
-            "id": 14,
-            "type": "UNETLoader",
-            "pos": [
-              0,
-              0
-            ],
-            "size": [
-              390,
-              120
-            ],
-            "flags": {},
-            "order": 0,
-            "mode": 0,
-            "inputs": [
-              {
-                "name": "unet_name",
-                "label": "unet_name",
-                "localized_name": "unet_name",
-                "type": "COMBO",
-                "widget": {
-                  "name": "unet_name"
-                },
-                "link": null
-              },
-              {
-                "name": "weight_dtype",
-                "label": "weight_dtype",
-                "localized_name": "weight_dtype",
-                "type": "COMBO",
-                "widget": {
-                  "name": "weight_dtype"
-                },
-                "link": null
-              }
-            ],
-            "outputs": [
-              {
-                "name": "MODEL",
-                "label": "MODEL",
-                "localized_name": "MODEL",
-                "type": "MODEL",
-                "slot_index": 0,
-                "links": [
-                  15
-                ]
-              }
-            ],
-            "properties": {
-              "cnr_id": "comfy-core",
-              "Node name for S&R": "UNETLoader"
-            },
-            "widgets_values": [
-              "flux-2-klein-9b-fp8.safetensors",
-              "default"
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】加载图像生成模型"
-          },
           {
             "id": 15,
             "type": "CLIPLoader",
@@ -6439,9 +6442,9 @@
             "mode": 0,
             "inputs": [
               {
-                "name": "clip_name",
                 "label": "clip_name",
-                "localized_name": "clip_name",
+                "localized_name": "CLIP名称",
+                "name": "clip_name",
                 "type": "COMBO",
                 "widget": {
                   "name": "clip_name"
@@ -6449,9 +6452,9 @@
                 "link": null
               },
               {
-                "name": "type",
                 "label": "type",
-                "localized_name": "type",
+                "localized_name": "类型",
+                "name": "type",
                 "type": "COMBO",
                 "widget": {
                   "name": "type"
@@ -6459,9 +6462,10 @@
                 "link": null
               },
               {
-                "name": "device",
                 "label": "device",
-                "localized_name": "device",
+                "localized_name": "设备",
+                "name": "device",
+                "shape": 7,
                 "type": "COMBO",
                 "widget": {
                   "name": "device"
@@ -6471,9 +6475,9 @@
             ],
             "outputs": [
               {
-                "name": "CLIP",
                 "label": "CLIP",
                 "localized_name": "CLIP",
+                "name": "CLIP",
                 "type": "CLIP",
                 "slot_index": 0,
                 "links": [
@@ -6483,14 +6487,14 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "CLIPLoader"
             },
             "widgets_values": [
               "qwen_3_8b_fp8mixed.safetensors",
               "flux2",
               "default"
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】加载文字理解模型"
+            ]
           },
           {
             "id": 16,
@@ -6508,9 +6512,9 @@
             "mode": 0,
             "inputs": [
               {
-                "name": "vae_name",
                 "label": "vae_name",
-                "localized_name": "vae_name",
+                "localized_name": "vae名称",
+                "name": "vae_name",
                 "type": "COMBO",
                 "widget": {
                   "name": "vae_name"
@@ -6520,9 +6524,9 @@
             ],
             "outputs": [
               {
-                "name": "VAE",
                 "label": "VAE",
                 "localized_name": "VAE",
+                "name": "VAE",
                 "type": "VAE",
                 "slot_index": 0,
                 "links": [
@@ -6534,12 +6538,12 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "VAELoader"
             },
             "widgets_values": [
               "full_encoder_small_decoder.safetensors"
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】加载图像编解码模型"
+            ]
           },
           {
             "id": 18,
@@ -6553,29 +6557,32 @@
               120
             ],
             "flags": {},
-            "order": 4,
+            "order": 5,
             "mode": 0,
             "inputs": [
               {
-                "name": "text",
-                "label": "text",
-                "localized_name": "text",
-                "type": "STRING",
-                "link": 27
-              },
-              {
-                "name": "clip",
-                "label": "clip",
+                "label": "CLIP",
                 "localized_name": "clip",
+                "name": "clip",
                 "type": "CLIP",
                 "link": 2
+              },
+              {
+                "label": "text",
+                "localized_name": "文本",
+                "name": "text",
+                "type": "STRING",
+                "widget": {
+                  "name": "text"
+                },
+                "link": 27
               }
             ],
             "outputs": [
               {
+                "label": "条件",
+                "localized_name": "条件",
                 "name": "CONDITIONING",
-                "label": "CONDITIONING",
-                "localized_name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "slot_index": 0,
                 "links": [
@@ -6586,10 +6593,12 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "CLIPTextEncode"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】编码编辑指令"
+            "widgets_values": [
+              ""
+            ]
           },
           {
             "id": 19,
@@ -6603,29 +6612,29 @@
               120
             ],
             "flags": {},
-            "order": 5,
+            "order": 6,
             "mode": 0,
             "inputs": [
               {
+                "label": "图像",
+                "localized_name": "像素",
                 "name": "pixels",
-                "label": "pixels",
-                "localized_name": "pixels",
                 "type": "IMAGE",
                 "link": 30
               },
               {
-                "name": "vae",
-                "label": "vae",
+                "label": "VAE",
                 "localized_name": "vae",
+                "name": "vae",
                 "type": "VAE",
                 "link": 3
               }
             ],
             "outputs": [
               {
+                "label": "Latent",
+                "localized_name": "Latent",
                 "name": "LATENT",
-                "label": "LATENT",
-                "localized_name": "LATENT",
                 "type": "LATENT",
                 "slot_index": 0,
                 "links": [
@@ -6637,10 +6646,10 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "VAEEncode"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】编码原始区块"
+            "widgets_values": []
           },
           {
             "id": 20,
@@ -6654,29 +6663,30 @@
               120
             ],
             "flags": {},
-            "order": 6,
+            "order": 7,
             "mode": 0,
             "inputs": [
               {
-                "name": "conditioning",
                 "label": "conditioning",
-                "localized_name": "conditioning",
+                "localized_name": "条件",
+                "name": "conditioning",
                 "type": "CONDITIONING",
                 "link": 4
               },
               {
-                "name": "latent",
                 "label": "latent",
-                "localized_name": "latent",
+                "localized_name": "Latent",
+                "name": "latent",
+                "shape": 7,
                 "type": "LATENT",
                 "link": 5
               }
             ],
             "outputs": [
               {
-                "name": "CONDITIONING",
                 "label": "CONDITIONING",
-                "localized_name": "CONDITIONING",
+                "localized_name": "条件",
+                "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "slot_index": 0,
                 "links": [
@@ -6684,12 +6694,13 @@
                 ]
               }
             ],
+            "title": "【四、FLUX.2 Klein 局部生成】建立正向参考内容",
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "ReferenceLatent"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】建立正向参考内容"
+            "widgets_values": []
           },
           {
             "id": 21,
@@ -6703,22 +6714,22 @@
               120
             ],
             "flags": {},
-            "order": 7,
+            "order": 8,
             "mode": 0,
             "inputs": [
               {
+                "label": "条件",
+                "localized_name": "条件",
                 "name": "conditioning",
-                "label": "conditioning",
-                "localized_name": "conditioning",
                 "type": "CONDITIONING",
                 "link": 6
               }
             ],
             "outputs": [
               {
+                "label": "条件",
+                "localized_name": "条件",
                 "name": "CONDITIONING",
-                "label": "CONDITIONING",
-                "localized_name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "slot_index": 0,
                 "links": [
@@ -6728,10 +6739,10 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "ConditioningZeroOut"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】建立空白负向条件"
+            "widgets_values": []
           },
           {
             "id": 22,
@@ -6745,29 +6756,30 @@
               120
             ],
             "flags": {},
-            "order": 8,
+            "order": 9,
             "mode": 0,
             "inputs": [
               {
-                "name": "conditioning",
                 "label": "conditioning",
-                "localized_name": "conditioning",
+                "localized_name": "条件",
+                "name": "conditioning",
                 "type": "CONDITIONING",
                 "link": 7
               },
               {
-                "name": "latent",
                 "label": "latent",
-                "localized_name": "latent",
+                "localized_name": "Latent",
+                "name": "latent",
+                "shape": 7,
                 "type": "LATENT",
                 "link": 8
               }
             ],
             "outputs": [
               {
-                "name": "CONDITIONING",
                 "label": "CONDITIONING",
-                "localized_name": "CONDITIONING",
+                "localized_name": "条件",
+                "name": "CONDITIONING",
                 "type": "CONDITIONING",
                 "slot_index": 0,
                 "links": [
@@ -6775,12 +6787,13 @@
                 ]
               }
             ],
+            "title": "【四、FLUX.2 Klein 局部生成】建立负向参考内容",
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "ReferenceLatent"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】建立负向参考内容"
+            "widgets_values": []
           },
           {
             "id": 23,
@@ -6790,24 +6803,24 @@
               1080
             ],
             "size": [
-              390,
+              395.1158203125,
               120
             ],
             "flags": {},
-            "order": 9,
+            "order": 10,
             "mode": 0,
             "inputs": [
               {
+                "label": "遮罩",
+                "localized_name": "遮罩",
                 "name": "mask",
-                "label": "mask",
-                "localized_name": "mask",
                 "type": "MASK",
                 "link": 32
               },
               {
-                "name": "value",
                 "label": "value",
-                "localized_name": "value",
+                "localized_name": "明度",
+                "name": "value",
                 "type": "FLOAT",
                 "widget": {
                   "name": "value"
@@ -6817,9 +6830,9 @@
             ],
             "outputs": [
               {
+                "label": "遮罩",
+                "localized_name": "遮罩",
                 "name": "MASK",
-                "label": "MASK",
-                "localized_name": "MASK",
                 "type": "MASK",
                 "slot_index": 0,
                 "links": [
@@ -6830,12 +6843,12 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "ThresholdMask"
             },
             "widgets_values": [
               0.5
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】提取需要替换的核心遮罩"
+            ]
           },
           {
             "id": 24,
@@ -6849,34 +6862,34 @@
               164
             ],
             "flags": {},
-            "order": 10,
+            "order": 11,
             "mode": 0,
             "inputs": [
               {
+                "label": "图像",
+                "localized_name": "像素",
                 "name": "pixels",
-                "label": "pixels",
-                "localized_name": "pixels",
                 "type": "IMAGE",
                 "link": 31
               },
               {
-                "name": "vae",
-                "label": "vae",
+                "label": "VAE",
                 "localized_name": "vae",
+                "name": "vae",
                 "type": "VAE",
                 "link": 9
               },
               {
+                "label": "遮罩",
+                "localized_name": "遮罩",
                 "name": "mask",
-                "label": "mask",
-                "localized_name": "mask",
                 "type": "MASK",
                 "link": 10
               },
               {
-                "name": "grow_mask_by",
                 "label": "grow_mask_by",
-                "localized_name": "grow_mask_by",
+                "localized_name": "遮罩延展",
+                "name": "grow_mask_by",
                 "type": "INT",
                 "widget": {
                   "name": "grow_mask_by"
@@ -6886,9 +6899,9 @@
             ],
             "outputs": [
               {
+                "label": "Latent",
+                "localized_name": "Latent",
                 "name": "LATENT",
-                "label": "LATENT",
-                "localized_name": "LATENT",
                 "type": "LATENT",
                 "slot_index": 0,
                 "links": [
@@ -6898,12 +6911,12 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "VAEEncodeForInpaint"
             },
             "widgets_values": [
               0
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】编码核心替换区域"
+            ]
           },
           {
             "id": 25,
@@ -6913,31 +6926,39 @@
               1320
             ],
             "size": [
-              390,
+              395.1158203125,
               218
             ],
             "flags": {},
-            "order": 11,
+            "order": 12,
             "mode": 0,
             "inputs": [
               {
+                "label": "目标Latent",
+                "localized_name": "目标Latent",
                 "name": "destination",
-                "label": "destination",
-                "localized_name": "destination",
                 "type": "LATENT",
                 "link": 11
               },
               {
+                "label": "源Latent",
+                "localized_name": "来源Latent",
                 "name": "source",
-                "label": "source",
-                "localized_name": "source",
                 "type": "LATENT",
                 "link": 12
               },
               {
-                "name": "x",
+                "label": "遮罩",
+                "localized_name": "遮罩",
+                "name": "mask",
+                "shape": 7,
+                "type": "MASK",
+                "link": 13
+              },
+              {
                 "label": "x",
-                "localized_name": "x",
+                "localized_name": "X",
+                "name": "x",
                 "type": "INT",
                 "widget": {
                   "name": "x"
@@ -6945,9 +6966,9 @@
                 "link": null
               },
               {
-                "name": "y",
                 "label": "y",
-                "localized_name": "y",
+                "localized_name": "Y",
+                "name": "y",
                 "type": "INT",
                 "widget": {
                   "name": "y"
@@ -6955,28 +6976,21 @@
                 "link": null
               },
               {
-                "name": "resize_source",
                 "label": "resize_source",
-                "localized_name": "resize_source",
+                "localized_name": "拉伸源Latent",
+                "name": "resize_source",
                 "type": "BOOLEAN",
                 "widget": {
                   "name": "resize_source"
                 },
                 "link": null
-              },
-              {
-                "name": "mask",
-                "label": "mask",
-                "localized_name": "mask",
-                "type": "MASK",
-                "link": 13
               }
             ],
             "outputs": [
               {
+                "label": "Latent",
+                "localized_name": "Latent",
                 "name": "LATENT",
-                "label": "LATENT",
-                "localized_name": "LATENT",
                 "type": "LATENT",
                 "slot_index": 0,
                 "links": [
@@ -6986,14 +7000,14 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "LatentCompositeMasked"
             },
             "widgets_values": [
               0,
               0,
               false
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】把核心区域写入原始编码"
+            ]
           },
           {
             "id": 29,
@@ -7007,29 +7021,29 @@
               120
             ],
             "flags": {},
-            "order": 12,
+            "order": 13,
             "mode": 0,
             "inputs": [
               {
+                "label": "Latent",
+                "localized_name": "Latent",
                 "name": "samples",
-                "label": "samples",
-                "localized_name": "samples",
                 "type": "LATENT",
                 "link": 14
               },
               {
+                "label": "遮罩",
+                "localized_name": "遮罩",
                 "name": "mask",
-                "label": "mask",
-                "localized_name": "mask",
                 "type": "MASK",
                 "link": 33
               }
             ],
             "outputs": [
               {
+                "label": "Latent",
+                "localized_name": "Latent",
                 "name": "LATENT",
-                "label": "LATENT",
-                "localized_name": "LATENT",
                 "type": "LATENT",
                 "slot_index": 0,
                 "links": [
@@ -7039,10 +7053,10 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "SetLatentNoiseMask"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】设置实际去噪范围"
+            "widgets_values": []
           },
           {
             "id": 30,
@@ -7056,13 +7070,13 @@
               120
             ],
             "flags": {},
-            "order": 13,
+            "order": 3,
             "mode": 0,
             "inputs": [
               {
-                "name": "noise_seed",
                 "label": "随机种子",
-                "localized_name": "随机种子",
+                "localized_name": "随机种",
+                "name": "noise_seed",
                 "type": "INT",
                 "widget": {
                   "name": "noise_seed"
@@ -7072,9 +7086,9 @@
             ],
             "outputs": [
               {
+                "label": "噪波生成",
+                "localized_name": "噪波",
                 "name": "NOISE",
-                "label": "NOISE",
-                "localized_name": "NOISE",
                 "type": "NOISE",
                 "slot_index": 0,
                 "links": [
@@ -7084,12 +7098,13 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "RandomNoise"
             },
             "widgets_values": [
-              26416064315369
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】随机种子"
+              681216010373427,
+              "randomize"
+            ]
           },
           {
             "id": 31,
@@ -7107,30 +7122,30 @@
             "mode": 0,
             "inputs": [
               {
+                "label": "模型",
+                "localized_name": "模型",
                 "name": "model",
-                "label": "model",
-                "localized_name": "model",
                 "type": "MODEL",
                 "link": 15
               },
               {
+                "label": "正面条件",
+                "localized_name": "正面条件",
                 "name": "positive",
-                "label": "positive",
-                "localized_name": "positive",
                 "type": "CONDITIONING",
                 "link": 16
               },
               {
+                "label": "负面条件",
+                "localized_name": "负面条件",
                 "name": "negative",
-                "label": "negative",
-                "localized_name": "negative",
                 "type": "CONDITIONING",
                 "link": 17
               },
               {
-                "name": "cfg",
                 "label": "cfg",
-                "localized_name": "cfg",
+                "localized_name": "CFG",
+                "name": "cfg",
                 "type": "FLOAT",
                 "widget": {
                   "name": "cfg"
@@ -7140,9 +7155,9 @@
             ],
             "outputs": [
               {
+                "label": "引导",
+                "localized_name": "引导器",
                 "name": "GUIDER",
-                "label": "GUIDER",
-                "localized_name": "GUIDER",
                 "type": "GUIDER",
                 "slot_index": 0,
                 "links": [
@@ -7152,12 +7167,12 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "CFGGuider"
             },
             "widgets_values": [
-              1.0
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】引导设置"
+              1
+            ]
           },
           {
             "id": 32,
@@ -7171,13 +7186,13 @@
               120
             ],
             "flags": {},
-            "order": 15,
+            "order": 4,
             "mode": 0,
             "inputs": [
               {
-                "name": "sampler_name",
                 "label": "sampler_name",
-                "localized_name": "sampler_name",
+                "localized_name": "采样器",
+                "name": "sampler_name",
                 "type": "COMBO",
                 "widget": {
                   "name": "sampler_name"
@@ -7187,9 +7202,9 @@
             ],
             "outputs": [
               {
+                "label": "采样器",
+                "localized_name": "采样器",
                 "name": "SAMPLER",
-                "label": "SAMPLER",
-                "localized_name": "SAMPLER",
                 "type": "SAMPLER",
                 "slot_index": 0,
                 "links": [
@@ -7199,12 +7214,12 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "KSamplerSelect"
             },
             "widgets_values": [
               "euler"
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】采样方法"
+            ]
           },
           {
             "id": 33,
@@ -7218,13 +7233,13 @@
               137
             ],
             "flags": {},
-            "order": 16,
+            "order": 15,
             "mode": 0,
             "inputs": [
               {
-                "name": "steps",
                 "label": "steps",
-                "localized_name": "steps",
+                "localized_name": "步数",
+                "name": "steps",
                 "type": "INT",
                 "widget": {
                   "name": "steps"
@@ -7232,25 +7247,31 @@
                 "link": null
               },
               {
-                "name": "width",
                 "label": "width",
-                "localized_name": "width",
+                "localized_name": "宽度",
+                "name": "width",
                 "type": "INT",
+                "widget": {
+                  "name": "width"
+                },
                 "link": 37
               },
               {
-                "name": "height",
                 "label": "height",
-                "localized_name": "height",
+                "localized_name": "高度",
+                "name": "height",
                 "type": "INT",
+                "widget": {
+                  "name": "height"
+                },
                 "link": 39
               }
             ],
             "outputs": [
               {
-                "name": "SIGMAS",
                 "label": "SIGMAS",
-                "localized_name": "SIGMAS",
+                "localized_name": "Sigmas",
+                "name": "SIGMAS",
                 "type": "SIGMAS",
                 "slot_index": 0,
                 "links": [
@@ -7258,14 +7279,17 @@
                 ]
               }
             ],
+            "title": "【四、FLUX.2 Klein 局部生成】采样步数与区块尺寸",
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "Flux2Scheduler"
             },
             "widgets_values": [
-              4
-            ],
-            "title": "【四、FLUX.2 Klein 局部生成】采样步数与区块尺寸"
+              4,
+              1024,
+              1024
+            ]
           },
           {
             "id": 34,
@@ -7275,54 +7299,54 @@
               2040
             ],
             "size": [
-              390,
+              414.331640625,
               191
             ],
             "flags": {},
-            "order": 17,
+            "order": 16,
             "mode": 0,
             "inputs": [
               {
+                "label": "噪波生成",
+                "localized_name": "噪波",
                 "name": "noise",
-                "label": "noise",
-                "localized_name": "noise",
                 "type": "NOISE",
                 "link": 18
               },
               {
+                "label": "引导",
+                "localized_name": "引导器",
                 "name": "guider",
-                "label": "guider",
-                "localized_name": "guider",
                 "type": "GUIDER",
                 "link": 19
               },
               {
+                "label": "采样器",
+                "localized_name": "采样器",
                 "name": "sampler",
-                "label": "sampler",
-                "localized_name": "sampler",
                 "type": "SAMPLER",
                 "link": 20
               },
               {
+                "label": "Sigmas",
+                "localized_name": "西格玛",
                 "name": "sigmas",
-                "label": "sigmas",
-                "localized_name": "sigmas",
                 "type": "SIGMAS",
                 "link": 21
               },
               {
+                "label": "Latent",
+                "localized_name": "Latent图像",
                 "name": "latent_image",
-                "label": "latent_image",
-                "localized_name": "latent_image",
                 "type": "LATENT",
                 "link": 22
               }
             ],
             "outputs": [
               {
+                "label": "输出",
+                "localized_name": "Latent",
                 "name": "output",
-                "label": "output",
-                "localized_name": "output",
                 "type": "LATENT",
                 "slot_index": 0,
                 "links": [
@@ -7330,9 +7354,9 @@
                 ]
               },
               {
+                "label": "降噪输出",
+                "localized_name": "降噪Latent",
                 "name": "denoised_output",
-                "label": "denoised_output",
-                "localized_name": "denoised_output",
                 "type": "LATENT",
                 "slot_index": 1,
                 "links": null
@@ -7340,10 +7364,10 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "SamplerCustomAdvanced"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】执行FLUX.2 Klein 局部生成"
+            "widgets_values": []
           },
           {
             "id": 35,
@@ -7357,29 +7381,29 @@
               120
             ],
             "flags": {},
-            "order": 18,
+            "order": 17,
             "mode": 0,
             "inputs": [
               {
+                "label": "Latent",
+                "localized_name": "Latent",
                 "name": "samples",
-                "label": "samples",
-                "localized_name": "samples",
                 "type": "LATENT",
                 "link": 23
               },
               {
-                "name": "vae",
-                "label": "vae",
+                "label": "VAE",
                 "localized_name": "vae",
+                "name": "vae",
                 "type": "VAE",
                 "link": 24
               }
             ],
             "outputs": [
               {
+                "label": "图像",
+                "localized_name": "图像",
                 "name": "IMAGE",
-                "label": "IMAGE",
-                "localized_name": "IMAGE",
                 "type": "IMAGE",
                 "slot_index": 0,
                 "links": [
@@ -7389,14 +7413,14 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "VAEDecode"
             },
-            "widgets_values": [],
-            "title": "【四、FLUX.2 Klein 局部生成】解码生成区块"
+            "widgets_values": []
           },
           {
             "id": 39,
-            "type": "UniversalRegionWeightedMergeExact",
+            "type": "RegionEditTileMerge",
             "pos": [
               0,
               2280
@@ -7406,62 +7430,70 @@
               326
             ],
             "flags": {},
-            "order": 19,
+            "order": 18,
             "mode": 0,
             "inputs": [
               {
-                "name": "destination",
                 "label": "destination",
                 "localized_name": "destination",
+                "name": "destination",
                 "type": "IMAGE",
                 "link": 28
               },
               {
-                "name": "candidate_tiles",
                 "label": "candidate_tiles",
                 "localized_name": "candidate_tiles",
+                "name": "candidate_tiles",
                 "type": "IMAGE",
                 "link": 26
               },
               {
-                "name": "composite_masks",
                 "label": "composite_masks",
                 "localized_name": "composite_masks",
+                "name": "composite_masks",
                 "type": "MASK",
                 "link": 34
               },
               {
-                "name": "x",
                 "label": "x",
                 "localized_name": "x",
+                "name": "x",
                 "type": "INT",
                 "link": 35
               },
               {
-                "name": "y",
                 "label": "y",
                 "localized_name": "y",
+                "name": "y",
                 "type": "INT",
                 "link": 36
               },
               {
-                "name": "width",
                 "label": "width",
                 "localized_name": "width",
+                "name": "width",
                 "type": "INT",
                 "link": 38
               },
               {
-                "name": "height",
                 "label": "height",
                 "localized_name": "height",
+                "name": "height",
                 "type": "INT",
                 "link": 40
               },
               {
-                "name": "support_cutoff",
+                "label": "ownership_masks",
+                "localized_name": "ownership_masks",
+                "name": "ownership_masks",
+                "shape": 7,
+                "type": "MASK",
+                "link": 43
+              },
+              {
                 "label": "support_cutoff",
                 "localized_name": "support_cutoff",
+                "name": "support_cutoff",
                 "type": "FLOAT",
                 "widget": {
                   "name": "support_cutoff"
@@ -7469,9 +7501,9 @@
                 "link": null
               },
               {
-                "name": "edge_ramp_pixels",
                 "label": "edge_ramp_pixels",
                 "localized_name": "edge_ramp_pixels",
+                "name": "edge_ramp_pixels",
                 "type": "INT",
                 "widget": {
                   "name": "edge_ramp_pixels"
@@ -7479,28 +7511,21 @@
                 "link": null
               },
               {
-                "name": "edge_confidence_floor",
                 "label": "edge_confidence_floor",
                 "localized_name": "edge_confidence_floor",
+                "name": "edge_confidence_floor",
                 "type": "FLOAT",
                 "widget": {
                   "name": "edge_confidence_floor"
                 },
                 "link": null
-              },
-              {
-                "name": "ownership_masks",
-                "label": "唯一归属遮罩",
-                "localized_name": "唯一归属遮罩",
-                "type": "MASK",
-                "link": 43
               }
             ],
             "outputs": [
               {
-                "name": "merged_source",
                 "label": "merged_source",
                 "localized_name": "merged_source",
+                "name": "merged_source",
                 "type": "IMAGE",
                 "slot_index": 0,
                 "links": [
@@ -7508,48 +7533,47 @@
                 ]
               },
               {
-                "name": "strict_union_mask",
                 "label": "strict_union_mask",
                 "localized_name": "strict_union_mask",
+                "name": "strict_union_mask",
                 "type": "MASK",
                 "slot_index": 1,
                 "links": null
               },
               {
-                "name": "overlap_heatmap",
                 "label": "overlap_heatmap",
                 "localized_name": "overlap_heatmap",
+                "name": "overlap_heatmap",
                 "type": "IMAGE",
                 "slot_index": 2,
                 "links": null
               },
               {
-                "name": "ownership_map",
                 "label": "ownership_map",
                 "localized_name": "ownership_map",
+                "name": "ownership_map",
                 "type": "IMAGE",
                 "slot_index": 3,
                 "links": null
               },
               {
-                "name": "report_json",
                 "label": "report_json",
                 "localized_name": "report_json",
+                "name": "report_json",
                 "type": "STRING",
                 "slot_index": 4,
                 "links": null
               }
             ],
+            "title": "内部：裸生成块按平方距离归一化融合",
             "properties": {
-              "cnr_id": "ComfyUI-MaskRegionTilePlanner",
-              "Node name for S&R": "UniversalRegionWeightedMergeExact"
+              "Node name for S&R": "RegionEditTileMerge"
             },
             "widgets_values": [
               0.02,
               128,
               0.05
-            ],
-            "title": "内部：裸生成块按平方距离归一化融合"
+            ]
           },
           {
             "id": 40,
@@ -7563,27 +7587,35 @@
               218
             ],
             "flags": {},
-            "order": 20,
+            "order": 19,
             "mode": 0,
             "inputs": [
               {
+                "label": "目标图像",
+                "localized_name": "目标图像",
                 "name": "destination",
-                "label": "destination",
-                "localized_name": "destination",
                 "type": "IMAGE",
                 "link": 29
               },
               {
+                "label": "源图像",
+                "localized_name": "来源图像",
                 "name": "source",
-                "label": "source",
-                "localized_name": "source",
                 "type": "IMAGE",
                 "link": 25
               },
               {
-                "name": "x",
+                "label": "遮罩",
+                "localized_name": "遮罩",
+                "name": "mask",
+                "shape": 7,
+                "type": "MASK",
+                "link": 41
+              },
+              {
                 "label": "x",
-                "localized_name": "x",
+                "localized_name": "X",
+                "name": "x",
                 "type": "INT",
                 "widget": {
                   "name": "x"
@@ -7591,9 +7623,9 @@
                 "link": null
               },
               {
-                "name": "y",
                 "label": "y",
-                "localized_name": "y",
+                "localized_name": "Y",
+                "name": "y",
                 "type": "INT",
                 "widget": {
                   "name": "y"
@@ -7601,28 +7633,21 @@
                 "link": null
               },
               {
-                "name": "resize_source",
                 "label": "resize_source",
-                "localized_name": "resize_source",
+                "localized_name": "拉伸源图像",
+                "name": "resize_source",
                 "type": "BOOLEAN",
                 "widget": {
                   "name": "resize_source"
                 },
                 "link": null
-              },
-              {
-                "name": "mask",
-                "label": "mask",
-                "localized_name": "mask",
-                "type": "MASK",
-                "link": 41
               }
             ],
             "outputs": [
               {
+                "label": "图像",
+                "localized_name": "图像",
                 "name": "IMAGE",
-                "label": "IMAGE",
-                "localized_name": "IMAGE",
                 "type": "IMAGE",
                 "slot_index": 0,
                 "links": [
@@ -7632,14 +7657,72 @@
             ],
             "properties": {
               "cnr_id": "comfy-core",
+              "ver": "0.28.0",
               "Node name for S&R": "ImageCompositeMasked"
             },
             "widgets_values": [
               0,
               0,
               false
+            ]
+          },
+          {
+            "id": 14,
+            "type": "UNETLoader",
+            "pos": [
+              0,
+              0
             ],
-            "title": "内部：使用全图内向羽化遮罩严格合回原图"
+            "size": [
+              390,
+              120
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "unet_name",
+                "localized_name": "UNET名称",
+                "name": "unet_name",
+                "type": "COMBO",
+                "widget": {
+                  "name": "unet_name"
+                },
+                "link": null
+              },
+              {
+                "label": "weight_dtype",
+                "localized_name": "剪枝类型",
+                "name": "weight_dtype",
+                "type": "COMBO",
+                "widget": {
+                  "name": "weight_dtype"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "label": "模型",
+                "localized_name": "模型",
+                "name": "MODEL",
+                "type": "MODEL",
+                "slot_index": 0,
+                "links": [
+                  15
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.28.0",
+              "Node name for S&R": "UNETLoader"
+            },
+            "widgets_values": [
+              "klein\\flux-2-klein-9b-fp8.safetensors",
+              "default"
+            ]
           }
         ],
         "groups": [],
@@ -7649,7 +7732,7 @@
             "origin_id": 15,
             "origin_slot": 0,
             "target_id": 18,
-            "target_slot": 1,
+            "target_slot": 0,
             "type": "CLIP"
           },
           {
@@ -7737,7 +7820,7 @@
             "origin_id": 23,
             "origin_slot": 0,
             "target_id": 25,
-            "target_slot": 5,
+            "target_slot": 2,
             "type": "MASK"
           },
           {
@@ -7849,7 +7932,7 @@
             "origin_id": -10,
             "origin_slot": 0,
             "target_id": 18,
-            "target_slot": 0,
+            "target_slot": 1,
             "type": "STRING"
           },
           {
@@ -7961,7 +8044,7 @@
             "origin_id": -10,
             "origin_slot": 8,
             "target_id": 40,
-            "target_slot": 5,
+            "target_slot": 2,
             "type": "MASK"
           },
           {
@@ -7977,7 +8060,7 @@
             "origin_id": -10,
             "origin_slot": 9,
             "target_id": 39,
-            "target_slot": 10,
+            "target_slot": 7,
             "type": "MASK"
           }
         ],
@@ -7989,13 +8072,6 @@
   },
   "config": {},
   "extra": {
-    "ds": {
-      "scale": 0.5200000000000043,
-      "offset": [
-        2099.732920653688,
-        1258.2549400615364
-      ]
-    },
     "workflowRendererVersion": "LG",
     "frontendVersion": "1.45.21"
   },

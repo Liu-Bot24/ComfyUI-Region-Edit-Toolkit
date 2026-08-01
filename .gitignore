@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 DEVELOPMENT_LOG.md
 recovery/
+build/
+dist/
+*.egg-info/
