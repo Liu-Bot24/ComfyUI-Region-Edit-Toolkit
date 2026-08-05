@@ -420,6 +420,29 @@ class PureV2WorkflowTests(unittest.TestCase):
                         for link_id in item.get("links") or []:
                             self.assertIn(link_id, links)
 
+    def test_public_examples_identify_region_edit_nodes_for_manager(self):
+        canonical_types = set(PLUGIN.NODE_CLASS_MAPPINGS)
+        for workflow_path in (ROOT / "workflows" / "examples").glob("*.json"):
+            workflow = json.loads(workflow_path.read_text(encoding="utf-8"))
+            package_nodes = [
+                node
+                for node in walk_nodes(workflow)
+                if node.get("type") in canonical_types
+            ]
+            self.assertTrue(package_nodes, workflow_path.name)
+            for node in package_nodes:
+                with self.subTest(
+                    workflow=workflow_path.name,
+                    node_id=node["id"],
+                    node_type=node["type"],
+                ):
+                    properties = node.get("properties", {})
+                    self.assertEqual(
+                        properties.get("cnr_id"),
+                        "native-region-tile-planner-merge",
+                    )
+                    self.assertEqual(properties.get("ver"), "0.2.0")
+
     def test_public_link_contract_check_rejects_known_port_shifts(self):
         workflow = json.loads(
             (

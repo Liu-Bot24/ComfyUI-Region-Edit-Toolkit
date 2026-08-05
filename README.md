@@ -18,6 +18,32 @@
 
 需要 Python 3.10 或更高版本。依赖必须安装到 ComfyUI 实际使用的 Python 环境中。
 
+### 使用 ComfyUI Manager（推荐）
+
+本节点已发布到 [ComfyUI Registry](https://registry.comfy.org/nodes/native-region-tile-planner-merge)。
+
+#### 通过示例工作流安装缺失节点包
+
+1. [下载智能消除示例工作流 JSON](https://raw.githubusercontent.com/Liu-Bot24/ComfyUI-Region-Edit-Toolkit/main/workflows/examples/RegionEdit-Smart-Removal-Example.json)，或[下载物品替换示例工作流 JSON](https://raw.githubusercontent.com/Liu-Bot24/ComfyUI-Region-Edit-Toolkit/main/workflows/examples/RegionEdit-Object-Replacement-Example.json)。
+2. 将 JSON 文件拖入 ComfyUI 画布，或通过“工作流 → 打开”加载。
+3. 打开 ComfyUI Manager 的“缺失节点”（`Install Missing Custom Nodes`）页面。
+4. 安装列表中的 `Region Edit Toolkit`（包 ID：`native-region-tile-planner-merge`）及工作流需要的其他节点包，然后重启 ComfyUI。
+5. 重新加载工作流，替换示例图片，并按本机目录选择所需模型。
+
+#### 在 Manager 中直接搜索安装
+
+1. 打开 ComfyUI Manager 的自定义节点管理器。
+2. 搜索 `Region Edit Toolkit` 或 `native-region-tile-planner-merge`。
+3. 点击安装，完成后重启 ComfyUI。
+
+### 使用 Comfy CLI
+
+```powershell
+comfy node install native-region-tile-planner-merge
+```
+
+### 使用 Git
+
 在 PowerShell 中进入 `ComfyUI\custom_nodes`，执行：
 
 ```powershell
